@@ -13,6 +13,7 @@
               <v-card v-for="(task, index) in tasks" :key="index"
                       class="mx-auto v-card-bg nice-looking-card"
                       :class="getBorderColorClass(task.isTaskOpen)"
+                      @click="emits('card-clicked', task.id)"
               >
                 <v-card-item>
                   <div>
@@ -59,6 +60,7 @@ const props = defineProps({
   tasks: Array,
 });
 
+const emits = defineEmits(['card-clicked']);
 
 const getBorderColorClass = (isTaskOpen: boolean) => {
   if (isTaskOpen) {

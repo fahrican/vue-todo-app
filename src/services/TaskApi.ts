@@ -4,7 +4,7 @@ import {TaskUpdateRequest} from "@/types/TaskUpdateRequest";
 import {AxiosResponse} from "axios";
 
 interface TaskService {
-  getTask: (id: number) => Promise<AxiosResponse>;
+  getTaskBydId: (id: number) => Promise<AxiosResponse>;
   getTasks: (status: string) => Promise<AxiosResponse>;
   createTask: (data: TaskCreateRequest) => Promise<AxiosResponse>;
   deleteTask: (id: number) => Promise<AxiosResponse>;
@@ -13,7 +13,7 @@ interface TaskService {
 
 
 export const taskService: TaskService = {
-  getTask(id: number) {
+  getTaskBydId(id: number) {
     return Api().get(`/tasks/${id}`)
   },
   getTasks(status: string) {

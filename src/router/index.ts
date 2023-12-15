@@ -1,5 +1,6 @@
-// Composables
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
+import TaskDetailView from "@/views/TaskDetailView.vue";
+
 
 const routes = [
   {
@@ -16,6 +17,12 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/task/:id',
+    name: 'TaskDetail',
+    component: TaskDetailView,
+    props: true
+  }
 ]
 
 const router = createRouter({

@@ -1,6 +1,6 @@
 <template>
   <NavbarComponent @taskTypeSelected="handleTaskTypeSelected"/>
-  <CardComponent :tasks="tasks" />
+  <CardComponent :tasks="tasks" @card-clicked="handleCardClicked"/>
 </template>
 
 <script lang="ts" setup>
@@ -11,10 +11,15 @@ import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {TaskState} from "@/types/TaskState";
 import {taskService} from "@/services/TaskApi";
 import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS} from "@/constants/constants";
+import {useRouter} from "vue-router";
 
 
 const tasks = reactive<TaskFetchResponse[]>([])
 const selectedTaskType = ref(TaskState[TaskState.OPEN]);
+const router = useRouter();
+const handleCardClicked = (id: number) => {
+  router.push({name: 'TaskDetail', params: {id}});
+};
 
 onMounted(fetchTasks);
 
