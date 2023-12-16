@@ -3,13 +3,8 @@
 
   <AppBackgroundComponent>
     <CardComponent
-      v-if="!showTaskDetails"
       :tasks="tasks"
       @card-clicked="handleCardClicked"
-    />
-    <TaskDetailComponent
-      v-if="showTaskDetails"
-      :taskId="selectedTaskId"
     />
   </AppBackgroundComponent>
 
@@ -23,24 +18,21 @@ import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {TaskState} from "@/types/TaskState";
 import {taskService} from "@/services/TaskApi";
 import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS} from "@/constants/constants";
-import TaskDetailComponent from "@/components/TaskDetailComponent.vue";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 
 
 const tasks = reactive<TaskFetchResponse[]>([])
 const selectedTaskType = ref(TaskState[TaskState.OPEN]);
-const showTaskDetails = ref(false);
 const selectedTaskId = ref(0);
+onMounted(fetchTasks);
+
+
 const handleCardClicked = (id: number) => {
-  showTaskDetails.value = true;
   selectedTaskId.value = id;
 };
 
-onMounted(fetchTasks);
 
 const handleTaskTypeSelected = (taskType: string) => {
-  showTaskDetails.value = false;
-  tasks.length = 0;
   switch (taskType) {
     case OPEN_TASKS:
       selectedTaskType.value = TaskState[TaskState.OPEN];
@@ -56,6 +48,7 @@ const handleTaskTypeSelected = (taskType: string) => {
 };
 
 async function fetchTasks() {
+  tasks.length = 0;
   try {
     let response = await taskService.getTasks(selectedTaskType.value);
     response?.data.forEach((task: TaskFetchResponse) => tasks.push(task));
