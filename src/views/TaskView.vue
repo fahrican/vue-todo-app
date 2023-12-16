@@ -1,6 +1,33 @@
 <template>
   <NavbarComponent @taskTypeSelected="handleTaskTypeSelected"/>
-  <CardComponent :tasks="tasks" @card-clicked="handleCardClicked"/>
+
+  <v-app id="inspire">
+    <v-main class="bg-grey-lighten-3">
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-sheet
+              min-height="70vh"
+              rounded="lg"
+              class="v-sheet-padding"
+            >
+              <CardComponent
+                v-if="!showTaskDetails"
+                :tasks="tasks"
+                @card-clicked="handleCardClicked"
+              />
+              <TaskDetailComponent
+                v-if="showTaskDetails"
+                :taskId="selectedTaskId"
+              />
+
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
+
 </template>
 
 <script lang="ts" setup>
@@ -11,19 +38,22 @@ import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {TaskState} from "@/types/TaskState";
 import {taskService} from "@/services/TaskApi";
 import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS} from "@/constants/constants";
-import {useRouter} from "vue-router";
+import TaskDetailComponent from "@/components/TaskDetailComponent.vue";
 
 
 const tasks = reactive<TaskFetchResponse[]>([])
 const selectedTaskType = ref(TaskState[TaskState.OPEN]);
-const router = useRouter();
+const showTaskDetails = ref(false);
+const selectedTaskId = ref(0);
 const handleCardClicked = (id: number) => {
-  router.push({name: 'TaskDetail', params: {id}});
+  showTaskDetails.value = true;
+  selectedTaskId.value = id;
 };
 
 onMounted(fetchTasks);
 
 const handleTaskTypeSelected = (taskType: string) => {
+  showTaskDetails.value = false;
   tasks.length = 0;
   switch (taskType) {
     case OPEN_TASKS:

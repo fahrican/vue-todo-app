@@ -4,6 +4,11 @@ import {reactive} from "vue";
 import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {taskService} from "@/services/TaskApi";
 
+
+const props = defineProps({
+  taskId: Number
+});
+
 let task = reactive<TaskFetchResponse>({
   id: 0,
   description: '',
