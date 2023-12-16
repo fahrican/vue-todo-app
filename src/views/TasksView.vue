@@ -19,15 +19,18 @@ import {TaskState} from "@/types/TaskState";
 import {taskService} from "@/services/TaskApi";
 import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS} from "@/constants/constants";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
-import {useRouter} from "vue-router";
+import router from "@/router";
 
 
 const tasks = reactive<TaskFetchResponse[]>([])
 const selectedTaskType = ref(TaskState[TaskState.OPEN]);
 const selectedTaskId = ref(0);
-const router = useRouter();
-onMounted(fetchTasks);
 
+const props = defineProps({
+  typeOfTask: String
+});
+
+onMounted(fetchTasks);
 
 const handleCardClicked = (id: number) => {
   selectedTaskId.value = id;

@@ -8,6 +8,7 @@ import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS} from "@/constants/constants";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import TaskDetailCardComponent from "@/components/TaskDetailCardComponent.vue";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
+import router from "@/router";
 
 
 const props = defineProps({
@@ -37,7 +38,12 @@ const handleTaskTypeSelected = (taskType: string) => {
       selectedTaskType.value = '';
       break;
   }
+  naviagteToTasksView();
 };
+
+const naviagteToTasksView = () => {
+  router.push({name: 'Home', params: {typeOfTask: selectedTaskType.value}})
+}
 
 async function fetchTaskById() {
   try {
