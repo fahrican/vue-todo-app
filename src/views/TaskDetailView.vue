@@ -6,7 +6,7 @@ import {taskService} from "@/services/TaskApi";
 
 
 const props = defineProps({
-  taskId: Number
+  id: Number
 });
 
 const task = reactive<TaskFetchResponse>({
@@ -20,7 +20,7 @@ const task = reactive<TaskFetchResponse>({
 
 async function fetchTaskById() {
   try {
-    const response = await taskService.getTaskBydId(props.taskId);
+    const response = await taskService.getTaskBydId(props.id);
     Object.assign(task, response.data);
   } catch (err) {
     console.log('error loading tasks: ' + err)

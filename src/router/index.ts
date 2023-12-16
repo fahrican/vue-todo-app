@@ -15,6 +15,12 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () => import('@/views/TasksView.vue'),
       },
+      {
+        path: 'tasks/:id',
+        name: 'TaskDetail',
+        component: TaskDetailView,
+        props: true,
+      }
     ],
   }
 ]
