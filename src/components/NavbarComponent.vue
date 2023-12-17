@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
-import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS} from "@/constants/constants";
+import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS, TASK_CREATE_VIEW} from "@/constants/constants";
+import router from "@/router";
 
 const links: string[] = [OPEN_TASKS, CLOSED_TASKS, ALL_TASKS]
 
@@ -12,6 +13,10 @@ const selectTaskType = (taskType: string) => {
 
 const logoClicked = () => {
   emit('logoClicked');
+};
+
+const createTask = () => {
+  router.push({name: TASK_CREATE_VIEW});
 };
 
 </script>
@@ -36,7 +41,8 @@ const logoClicked = () => {
         class="text-none text-subtitle-1"
         color="#05B990"
         size="small"
-        variant="outlined">
+        variant="outlined"
+        @click="createTask">
         Create Task
       </v-btn>
     </v-container>
