@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {reactive, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {taskService} from "@/services/TaskApi";
 import {TaskState} from "@/types/TaskState";
@@ -26,6 +26,8 @@ const task = reactive<TaskFetchResponse>({
   priority: null
 })
 
+onMounted(fetchTaskById);
+
 const handleTaskTypeSelected = (taskType: string) => {
   switch (taskType) {
     case OPEN_TASKS:
@@ -38,12 +40,13 @@ const handleTaskTypeSelected = (taskType: string) => {
       selectedTaskType.value = '';
       break;
   }
-  naviagteToTasksView();
+  navigateToTasksView();
 };
 
-const naviagteToTasksView = () => {
-  router.push({name: 'Home', params: {typeOfTask: selectedTaskType.value}})
-}
+const navigateToTasksView = () => {
+  console.log("task detail: " + selectedTaskType.value);
+  router.push({name: 'Home', query: {typeOfTask: selectedTaskType.value}});
+};
 
 async function fetchTaskById() {
   try {

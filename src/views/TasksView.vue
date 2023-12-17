@@ -13,24 +13,36 @@
 <script lang="ts" setup>
 import CardComponent from "@/components/CardComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
-import {reactive, ref, onMounted} from "vue";
+import {reactive, ref, onMounted, watch} from "vue";
 import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {TaskState} from "@/types/TaskState";
 import {taskService} from "@/services/TaskApi";
 import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS} from "@/constants/constants";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import router from "@/router";
+import {useRoute} from 'vue-router';
 
 
 const tasks = reactive<TaskFetchResponse[]>([])
-const selectedTaskType = ref(TaskState[TaskState.OPEN]);
+const selectedTaskType = ref('');
 const selectedTaskId = ref(0);
+const route = useRoute();
 
-const props = defineProps({
-  typeOfTask: String
+
+onMounted(() => {
+  if (typeof route.query.typeOfTask === 'string') {
+    fetchTasks(route.query.typeOfTask);
+  } else {
+    fetchTasks(TaskState[TaskState.OPEN]);
+  }
+})
+;
+
+watch(() => route.query.typeOfTask, (newType) => {
+  if (newType) {
+    fetchTasks(newType);
+  }
 });
-
-onMounted(fetchTasks);
 
 const handleCardClicked = (id: number) => {
   selectedTaskId.value = id;
@@ -50,13 +62,13 @@ const handleTaskTypeSelected = (taskType: string) => {
       selectedTaskType.value = '';
       break;
   }
-  fetchTasks()
+  fetchTasks(selectedTaskType.value);
 };
 
-async function fetchTasks() {
+async function fetchTasks(taskType: string) {
   tasks.length = 0;
   try {
-    let response = await taskService.getTasks(selectedTaskType.value);
+    let response = await taskService.getTasks(taskType);
     response?.data.forEach((task: TaskFetchResponse) => tasks.push(task));
   } catch (err) {
     console.log('error loading tasks: ' + err)
