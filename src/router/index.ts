@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import TaskDetailView from "@/views/TaskDetailView.vue";
+import {HOME_VIEW} from "@/constants/constants";
 
 
 const routes = [
@@ -9,7 +10,7 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'Home',
+        name: HOME_VIEW,
         // route level code-splitting
         // this generates a separate chunk (Home-[hash].js) for this route
         // which is lazy-loaded when the route is visited.

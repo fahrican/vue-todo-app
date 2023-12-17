@@ -4,7 +4,7 @@ import {onMounted, reactive, ref} from "vue";
 import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {taskService} from "@/services/TaskApi";
 import {TaskState} from "@/types/TaskState";
-import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS} from "@/constants/constants";
+import {ALL_TASKS, CLOSED_TASKS, HOME_VIEW, OPEN_TASKS} from "@/constants/constants";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import TaskDetailCardComponent from "@/components/TaskDetailCardComponent.vue";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
@@ -44,12 +44,11 @@ const handleTaskTypeSelected = (taskType: string) => {
 };
 
 const navigateToTasksView = () => {
-  console.log("task detail: " + selectedTaskType.value);
-  router.push({name: 'Home', query: {typeOfTask: selectedTaskType.value}});
+  router.push({name: HOME_VIEW, query: {typeOfTask: selectedTaskType.value}});
 };
 
 const logoClicked = () => {
-  router.push({name: 'Home'});
+  router.push({name: HOME_VIEW});
 };
 
 async function fetchTaskById() {

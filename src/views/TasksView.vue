@@ -17,7 +17,7 @@ import {reactive, ref, onMounted} from "vue";
 import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {TaskState} from "@/types/TaskState";
 import {taskService} from "@/services/TaskApi";
-import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS} from "@/constants/constants";
+import {ALL_TASKS, CLOSED_TASKS, HOME_VIEW, OPEN_TASKS} from "@/constants/constants";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import router from "@/router";
 import {useRoute} from 'vue-router';
@@ -60,7 +60,7 @@ const handleTaskTypeSelected = (taskType: string) => {
 
 const logoClicked = () => {
   route.query.typeOfTask = TaskState[TaskState.OPEN];
-  router.push({name: 'Home'});
+  router.push({name: HOME_VIEW});
   fetchTasks(TaskState[TaskState.OPEN])
 };
 
