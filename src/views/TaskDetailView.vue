@@ -48,6 +48,10 @@ const navigateToTasksView = () => {
   router.push({name: 'Home', query: {typeOfTask: selectedTaskType.value}});
 };
 
+const logoClicked = () => {
+  router.push({name: 'Home'});
+};
+
 async function fetchTaskById() {
   try {
     const response = await taskService.getTaskBydId(props.id);
@@ -62,7 +66,7 @@ fetchTaskById()
 
 <template>
 
-  <NavbarComponent @taskTypeSelected="handleTaskTypeSelected"/>
+  <NavbarComponent @taskTypeSelected="handleTaskTypeSelected" @logoClicked="logoClicked"/>
   <AppBackgroundComponent>
     <TaskDetailCardComponent :task="task"/>
   </AppBackgroundComponent>
