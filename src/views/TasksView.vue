@@ -17,7 +17,7 @@ import {reactive, ref, onMounted} from "vue";
 import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {TaskState} from "@/types/TaskState";
 import {taskService} from "@/services/TaskApi";
-import {ALL_TASKS, CLOSED_TASKS, HOME_VIEW, OPEN_TASKS} from "@/constants/constants";
+import {ALL_TASKS, CLOSED_TASKS, HOME_VIEW, OPEN_TASKS, TASK_DETAIL_VIEW} from "@/constants/constants";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import router from "@/router";
 import {useRoute} from 'vue-router';
@@ -39,7 +39,7 @@ onMounted(() => {
 
 const handleCardClicked = (id: number) => {
   selectedTaskId.value = id;
-  router.push({name: 'TaskDetail', params: {id: id.toString()}})
+  router.push({name: TASK_DETAIL_VIEW, params: {id: id.toString()}})
 };
 
 
