@@ -1,5 +1,5 @@
 <template>
-  <NavbarComponent @taskTypeSelected="handleTaskTypeSelected"/>
+  <NavbarComponent @taskTypeSelected="handleTaskTypeSelected" @logoClicked="logoClicked"/>
 
   <AppBackgroundComponent>
     <CardComponent
@@ -56,6 +56,12 @@ const handleTaskTypeSelected = (taskType: string) => {
       break;
   }
   fetchTasks(selectedTaskType.value);
+};
+
+const logoClicked = () => {
+  route.query.typeOfTask = TaskState[TaskState.OPEN];
+  router.push({name: 'Home'});
+  fetchTasks(TaskState[TaskState.OPEN])
 };
 
 async function fetchTasks(taskType: string) {

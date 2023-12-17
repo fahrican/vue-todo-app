@@ -4,10 +4,14 @@ import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS} from "@/constants/constants";
 
 const links: string[] = [OPEN_TASKS, CLOSED_TASKS, ALL_TASKS]
 
-const emit = defineEmits(['taskTypeSelected']);
+const emit = defineEmits(['taskTypeSelected', 'logoClicked']);
 
 const selectTaskType = (taskType: string) => {
   emit('taskTypeSelected', taskType);
+};
+
+const logoClicked = () => {
+  emit('logoClicked');
 };
 
 </script>
@@ -16,7 +20,7 @@ const selectTaskType = (taskType: string) => {
   <v-app-bar flat>
     <v-container class="mx-auto d-flex align-center justify-center">
       <v-app-bar-title>
-        <v-img src="../assets/logo.png" max-height="70" max-width="70"></v-img>
+        <v-img src="../assets/logo.png" max-height="70" max-width="70" @click="logoClicked"></v-img>
       </v-app-bar-title>
 
       <v-btn
