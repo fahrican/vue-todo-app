@@ -5,6 +5,7 @@
     <CardComponent
       :tasks="tasks"
       @card-clicked="handleCardClicked"
+      @delete-clicked="deleteTask"
     />
   </AppBackgroundComponent>
 
@@ -63,6 +64,17 @@ const logoClicked = () => {
   router.push({name: HOME_VIEW});
   fetchTasks(TaskState[TaskState.OPEN])
 };
+
+const deleteTask = (id: number) => {
+  try {
+    taskService.deleteTask(id).then(() => {
+      fetchTasks(selectedTaskType.value);
+    });
+  } catch (err) {
+    console.log('error deleting task: ' + err)
+  }
+};
+
 
 async function fetchTasks(taskType: string) {
   tasks.length = 0;

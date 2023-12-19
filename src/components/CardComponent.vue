@@ -28,7 +28,7 @@
         Edit Task
       </v-btn>
 
-      <v-btn color="red" class="ml-auto">
+      <v-btn color="red" class="ml-auto" @click="emits('delete-clicked', task.id)">
         Delete Task
         <v-icon end icon="mdi-trash-can-outline"></v-icon>
       </v-btn>
@@ -42,7 +42,7 @@ const props = defineProps({
   tasks: Array,
 });
 
-const emits = defineEmits(['card-clicked']);
+const emits = defineEmits(['card-clicked', 'delete-clicked']);
 
 const getBorderColorClass = (isTaskOpen: boolean) => {
   if (isTaskOpen) {
