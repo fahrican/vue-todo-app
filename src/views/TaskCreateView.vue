@@ -8,11 +8,11 @@ import {taskService} from "@/services/TaskApi";
 import {useTaskNavigation} from '@/composables/useTaskNavigation';
 
 
-const {selectedTaskType, handleTaskTypeSelected, navigateToTasksView, logoClicked} = useTaskNavigation();
+const {handleTaskTypeSelected, navigateToTasksView, logoClicked} = useTaskNavigation();
 
 const createTask = (task: TaskCreateRequest) => {
   createNewTask(task);
-  logoClicked();
+  navigateToTasksView();
 };
 
 async function createNewTask(request: TaskCreateRequest) {

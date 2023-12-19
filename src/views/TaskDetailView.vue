@@ -22,7 +22,7 @@ const task = reactive<TaskFetchResponse>({
   priority: null
 })
 
-const {selectedTaskType, handleTaskTypeSelected, navigateToTasksView, logoClicked} = useTaskNavigation();
+const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 
 onMounted(fetchTaskById);
 
