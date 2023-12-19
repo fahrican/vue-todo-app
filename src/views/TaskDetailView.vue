@@ -3,19 +3,15 @@
 import {onMounted, reactive, ref} from "vue";
 import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {taskService} from "@/services/TaskApi";
-import {TaskState} from "@/types/TaskState";
-import {ALL_TASKS, CLOSED_TASKS, HOME_VIEW, OPEN_TASKS} from "@/constants/constants";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import TaskDetailCardComponent from "@/components/TaskDetailCardComponent.vue";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
-import router from "@/router";
+import {useTaskNavigation} from '@/composables/useTaskNavigation';
 
 
 const props = defineProps({
   id: Number
 });
-
-const selectedTaskType = ref(TaskState[TaskState.OPEN]);
 
 const task = reactive<TaskFetchResponse>({
   id: 0,
@@ -26,30 +22,9 @@ const task = reactive<TaskFetchResponse>({
   priority: null
 })
 
+const {selectedTaskType, handleTaskTypeSelected, navigateToTasksView, logoClicked} = useTaskNavigation();
+
 onMounted(fetchTaskById);
-
-const handleTaskTypeSelected = (taskType: string) => {
-  switch (taskType) {
-    case OPEN_TASKS:
-      selectedTaskType.value = TaskState[TaskState.OPEN];
-      break;
-    case CLOSED_TASKS:
-      selectedTaskType.value = TaskState[TaskState.CLOSED];
-      break;
-    case ALL_TASKS:
-      selectedTaskType.value = '';
-      break;
-  }
-  navigateToTasksView();
-};
-
-const navigateToTasksView = () => {
-  router.push({name: HOME_VIEW, query: {typeOfTask: selectedTaskType.value}});
-};
-
-const logoClicked = () => {
-  router.push({name: HOME_VIEW});
-};
 
 async function fetchTaskById() {
   try {

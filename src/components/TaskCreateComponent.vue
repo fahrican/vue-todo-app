@@ -65,7 +65,7 @@ const submit = handleSubmit(values => {
       v-model="isTaskOpen.value.value"
       :error-messages="isTaskOpen.errorMessage.value"
       value="1"
-      label="Reminder"
+      label="Open"
       type="checkbox"
     ></v-checkbox>
 
