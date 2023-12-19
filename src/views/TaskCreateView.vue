@@ -7,6 +7,8 @@ import {TaskState} from "@/types/TaskState";
 import router from "@/router";
 import {ref} from "vue";
 import TaskCreateComponent from "@/components/TaskCreateComponent.vue";
+import {TaskCreateRequest} from "@/types/TaskCreateRequest";
+import {taskService} from "@/services/TaskApi";
 
 
 const selectedTaskType = ref(TaskState[TaskState.OPEN]);
@@ -34,13 +36,27 @@ const logoClicked = () => {
   router.push({name: HOME_VIEW});
 };
 
+const createTask = (task: TaskCreateRequest) => {
+  createNewTask(task);
+  logoClicked();
+};
+
+async function createNewTask(request: TaskCreateRequest) {
+  try {
+    let response = await taskService.createTask(request);
+    console.log(response.data);
+  } catch (err) {
+    console.log('error loading tasks: ' + err)
+  }
+}
+
 </script>
 
 <template>
 
   <NavbarComponent @taskTypeSelected="handleTaskTypeSelected" @logoClicked="logoClicked"/>
   <AppBackgroundComponent>
-    <TaskCreateComponent/>
+    <TaskCreateComponent @create-new-task="createTask"/>
   </AppBackgroundComponent>
 </template>
 

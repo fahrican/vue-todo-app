@@ -48,7 +48,7 @@ const getBorderColorClass = (isTaskOpen: boolean) => {
   if (isTaskOpen) {
     return 'green-border';
   } else {
-    return 'red-border';
+    return 'black-border';
   }
 };
 
@@ -61,8 +61,8 @@ const getBorderColorClass = (isTaskOpen: boolean) => {
   text-align: center;
 }
 
-.red-border {
-  border: 2px solid red;
+.black-border {
+  border: 2px solid black;
 }
 
 .green-border {

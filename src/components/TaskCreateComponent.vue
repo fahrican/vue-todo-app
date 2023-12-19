@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {useField, useForm} from 'vee-validate'
 import {Priority} from "@/types/Priority";
+import {TaskCreateRequest} from "@/types/TaskCreateRequest";
 
 const {handleSubmit, handleReset} = useForm({
   validationSchema: {
     description(value) {
       if (value?.length >= 3) return true
-
       return 'Description needs to be at least 3 characters.'
     },
     select(value) {
       if (value) return true
-
       return 'Select a priority!.'
     },
   },
@@ -21,16 +20,28 @@ const description = useField('description')
 const select = useField('select')
 const isReminderSet = useField('isReminderSet')
 const isTaskOpen = useField('isTaskOpen')
-
 const priority = ref([
   Priority[Priority.LOW],
   Priority[Priority.MEDIUM],
   Priority[Priority.HIGH],
 ])
+const request = reactive<TaskCreateRequest>({
+  description: description.value.value,
+  priority: select.value.value,
+  isReminderSet: isReminderSet.value.value,
+  isTaskOpen: isTaskOpen.value.value,
+});
+const emit = defineEmits(['create-new-task']);
+
 
 const submit = handleSubmit(values => {
-  alert(JSON.stringify(values, null, 2))
+  request.description = values.description;
+  request.isReminderSet = values.isReminderSet !== undefined;
+  request.isTaskOpen = values.isTaskOpen !== undefined;
+  request.priority = values.select;
+  emit('create-new-task', request);
 })
+
 </script>
 
 <template>
