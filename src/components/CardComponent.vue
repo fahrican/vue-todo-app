@@ -2,9 +2,8 @@
   <v-card v-for="(task, index) in tasks" :key="index"
           class="mx-auto v-card-bg nice-looking-card"
           :class="getBorderColorClass(task.isTaskOpen)"
-          @click="emits('card-clicked', task.id)"
   >
-    <v-card-item>
+    <v-card-item @click="emits('card-clicked', task.id)">
       <div>
         <div class="text-overline mb-2">
           <v-card-text class="d-flex justify-space-between align-items-center">
