@@ -9,7 +9,6 @@ const dialog = ref(false);
 const emits = defineEmits(['confirm-delete', 'update:modelValue']);
 
 watch(() => props.modelValue, newVal => {
-  console.log('TaskDeleteDialog', newVal);
   dialog.value = newVal;
 });
 
