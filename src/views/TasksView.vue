@@ -5,8 +5,9 @@
     <CardComponent
       :tasks="tasks"
       @card-clicked="handleCardClicked"
-      @delete-clicked="deleteTask"
+      @delete-clicked="openDeleteDialog"
     />
+    <TaskDeleteDialog ref="deleteDialog" v-model="deleteDialog.valueOf" @confirm-delete="deleteTask"/>
   </AppBackgroundComponent>
 
 </template>
@@ -22,12 +23,14 @@ import {ALL_TASKS, CLOSED_TASKS, HOME_VIEW, OPEN_TASKS, TASK_DETAIL_VIEW} from "
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import router from "@/router";
 import {useRoute} from 'vue-router';
+import TaskDeleteDialog from "@/components/TaskDeleteDialog.vue";
 
 
 const tasks = reactive<TaskFetchResponse[]>([])
 const selectedTaskType = ref('');
 const selectedTaskId = ref(0);
 const route = useRoute();
+const deleteDialog = ref(false);
 
 
 onMounted(() => {
@@ -37,6 +40,11 @@ onMounted(() => {
     fetchTasks(TaskState[TaskState.OPEN]);
   }
 });
+
+const openDeleteDialog = (id: number) => {
+  selectedTaskId.value = id;
+  deleteDialog.value = true;
+};
 
 const handleCardClicked = (id: number) => {
   selectedTaskId.value = id;
