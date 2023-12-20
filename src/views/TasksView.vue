@@ -7,7 +7,7 @@
       @card-clicked="handleCardClicked"
       @delete-clicked="openDeleteDialog"
     />
-    <TaskDeleteDialog v-model="isDeleteDialogSelected" @confirm-delete="deleteTask"/>
+    <TaskDeleteDialog v-model="isDeleteDialogSelected" @confirm-delete="deleteTask(selectedTaskId.valueOf())"/>
   </AppBackgroundComponent>
 
 </template>
