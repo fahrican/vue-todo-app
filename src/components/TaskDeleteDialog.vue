@@ -1,14 +1,15 @@
 <script setup lang="ts">
-
-import {ref, watch} from "vue";
+import {ref, watch, defineProps} from 'vue';
 
 const props = defineProps({
   modelValue: Boolean,
 });
+
 const dialog = ref(false);
 const emits = defineEmits(['confirm-delete', 'update:modelValue']);
 
 watch(() => props.modelValue, newVal => {
+  console.log('TaskDeleteDialog', newVal);
   dialog.value = newVal;
 });
 
@@ -17,7 +18,6 @@ const confirmDelete = () => {
   dialog.value = false;
   emits('update:modelValue', false);
 };
-
 </script>
 
 <template>
@@ -36,18 +36,10 @@ const confirmDelete = () => {
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="green-darken-1"
-            variant="text"
-            @click="confirmDelete"
-          >
+          <v-btn color="red-darken-1" variant="text" @click="dialog = false; emits('update:modelValue', false);">
             Disagree
           </v-btn>
-          <v-btn
-            color="green-darken-1"
-            variant="text"
-            @click="dialog = false"
-          >
+          <v-btn color="green-darken-1" variant="text" @click="confirmDelete">
             Agree
           </v-btn>
         </v-card-actions>

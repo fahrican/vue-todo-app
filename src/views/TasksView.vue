@@ -7,7 +7,7 @@
       @card-clicked="handleCardClicked"
       @delete-clicked="openDeleteDialog"
     />
-    <TaskDeleteDialog ref="deleteDialog" v-model="deleteDialog.valueOf" @confirm-delete="deleteTask"/>
+    <TaskDeleteDialog v-model="isDeleteDialogSelected" @confirm-delete="deleteTask"/>
   </AppBackgroundComponent>
 
 </template>
@@ -30,7 +30,7 @@ const tasks = reactive<TaskFetchResponse[]>([])
 const selectedTaskType = ref('');
 const selectedTaskId = ref(0);
 const route = useRoute();
-const deleteDialog = ref(false);
+const isDeleteDialogSelected = ref(false);
 
 
 onMounted(() => {
@@ -42,8 +42,10 @@ onMounted(() => {
 });
 
 const openDeleteDialog = (id: number) => {
+  console.log('openDeleteDialog called with id:', id);
   selectedTaskId.value = id;
-  deleteDialog.value = true;
+  isDeleteDialogSelected.value = true;
+  console.log('openDeleteDialog: ', isDeleteDialogSelected.value);
 };
 
 const handleCardClicked = (id: number) => {
