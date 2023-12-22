@@ -8,7 +8,7 @@ import TaskUpdateComponent from "@/components/TaskUpdateComponent.vue";
 
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 const route = useRoute();
-const taskId = route.params.id;
+const taskId: string = route.params.id.toString();
 
 </script>
 

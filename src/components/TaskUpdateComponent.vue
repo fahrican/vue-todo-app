@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
-import {PropType, reactive, ref} from "vue";
-import {TaskFetchResponse} from "@/types/TaskFetchResponse";
+import {reactive, ref} from "vue";
 import {useField, useForm} from "vee-validate";
 import {Priority} from "@/types/Priority";
 import {TaskUpdateRequest} from "@/types/TaskUpdateRequest";
@@ -39,7 +38,6 @@ const request = reactive<TaskUpdateRequest>({
 });
 const emit = defineEmits(['updated-task']);
 
-
 const submit = handleSubmit(values => {
   request.description = values.description;
   request.isReminderSet = values.isReminderSet !== undefined;
@@ -47,18 +45,18 @@ const submit = handleSubmit(values => {
   request.priority = values.select;
   emit('updated-task', request);
 })
+const test = ref('Iron Man');
 
 </script>
 
 <template>
   <form @submit.prevent="submit">
     <v-text-field
-      v-model="description.value.value"
+      v-model="test"
       :counter="10"
       :error-messages="description.errorMessage.value"
       label="Description"
-    >Description {{props.task.description}}}
-    </v-text-field>
+    />
 
     <v-checkbox
       v-model="isReminderSet.value.value"
@@ -85,7 +83,7 @@ const submit = handleSubmit(values => {
 
     <v-btn class="mb-4 clear-btn" @click="handleReset">clear</v-btn>
 
-    <v-btn class="mb-4 submit-btn" type="submit">submit</v-btn>
+    <v-btn class="mb-4 submit-btn" type="submit">update</v-btn>
 
   </form>
 </template>
