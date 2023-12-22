@@ -27,7 +27,7 @@ import {ALL_TASKS, CLOSED_TASKS, HOME_VIEW, OPEN_TASKS, TASK_DETAIL_VIEW} from "
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import router from "@/router";
 import {useRoute} from 'vue-router';
-import TaskDeleteDialog from "@/components/TaskDeleteDialog.vue";
+import TaskDeleteDialog from "@/components/TaskDeleteDialogComponent.vue";
 
 
 const tasks = reactive<TaskFetchResponse[]>([])
