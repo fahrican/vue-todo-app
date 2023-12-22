@@ -3,6 +3,7 @@ import {ref, watch, defineProps} from 'vue';
 
 const props = defineProps({
   modelValue: Boolean,
+  taskDescription: String
 });
 
 const dialog = ref(false);
@@ -31,7 +32,7 @@ const confirmDelete = () => {
           Are you sure you want to delete this task?
         </v-card-title>
         <v-card-text>
-          Task Description:
+          Task Description: {{ props.taskDescription }}
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>

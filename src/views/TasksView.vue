@@ -7,7 +7,11 @@
       @card-clicked="handleCardClicked"
       @delete-clicked="openDeleteDialog"
     />
-    <TaskDeleteDialog v-model="isDeleteDialogSelected" @confirm-delete="deleteTask(selectedTaskId.valueOf())"/>
+    <TaskDeleteDialog
+      v-model="isDeleteDialogSelected"
+      :taskDescription="selectedTaskDescription.valueOf()"
+      @confirm-delete="deleteTask(selectedTaskId.valueOf())"
+    />
   </AppBackgroundComponent>
 
 </template>
@@ -31,6 +35,7 @@ const selectedTaskType = ref('');
 const selectedTaskId = ref(0);
 const route = useRoute();
 const isDeleteDialogSelected = ref(false);
+const selectedTaskDescription = ref('');
 
 
 onMounted(() => {
@@ -41,11 +46,10 @@ onMounted(() => {
   }
 });
 
-const openDeleteDialog = (id: number) => {
-  console.log('openDeleteDialog called with id:', id);
-  selectedTaskId.value = id;
+const openDeleteDialog = (task: { id: number, description: string }) => {
+  selectedTaskId.value = task.id;
+  selectedTaskDescription.value = task.description;
   isDeleteDialogSelected.value = true;
-  console.log('openDeleteDialog: ', isDeleteDialogSelected.value);
 };
 
 const handleCardClicked = (id: number) => {

@@ -27,7 +27,7 @@
         Edit Task
       </v-btn>
 
-      <v-btn color="red" class="ml-auto" @click="emits('delete-clicked', task.id)">
+      <v-btn color="red" class="ml-auto" @click="emits('delete-clicked', {id: task.id, description: task.description})">
         Delete Task
         <v-icon end icon="mdi-trash-can-outline"></v-icon>
       </v-btn>
