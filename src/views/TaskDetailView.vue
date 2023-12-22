@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, reactive} from "vue";
 import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {taskService} from "@/services/TaskApi";
 import NavbarComponent from "@/components/NavbarComponent.vue";
@@ -10,7 +10,7 @@ import {useTaskNavigation} from '@/composables/useTaskNavigation';
 
 
 const props = defineProps({
-  id: Number
+  id: String
 });
 
 const task = reactive<TaskFetchResponse>({
