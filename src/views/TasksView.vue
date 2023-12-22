@@ -6,6 +6,7 @@
       :tasks="tasks"
       @card-clicked="handleCardClicked"
       @delete-clicked="openDeleteDialog"
+      @edit-clicked="navigateToTaskUpdateView"
     />
     <TaskDeleteDialog
       v-model="isDeleteDialogSelected"
@@ -23,7 +24,14 @@ import {reactive, ref, onMounted} from "vue";
 import {TaskFetchResponse} from "@/types/TaskFetchResponse";
 import {TaskState} from "@/types/TaskState";
 import {taskService} from "@/services/TaskApi";
-import {ALL_TASKS, CLOSED_TASKS, HOME_VIEW, OPEN_TASKS, TASK_DETAIL_VIEW} from "@/constants/constants";
+import {
+  ALL_TASKS,
+  CLOSED_TASKS,
+  HOME_VIEW,
+  OPEN_TASKS,
+  TASK_DETAIL_VIEW,
+  TASK_UPDATE_VIEW
+} from "@/constants/constants";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import router from "@/router";
 import {useRoute} from 'vue-router';
@@ -89,6 +97,9 @@ const deleteTask = (id: number) => {
   }
 };
 
+const navigateToTaskUpdateView = (id: number) => {
+  router.push({name: TASK_UPDATE_VIEW, params: {id: id.toString()}})
+};
 
 async function fetchTasks(taskType: string) {
   tasks.length = 0;

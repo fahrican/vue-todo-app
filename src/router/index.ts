@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import TaskDetailView from "@/views/TaskDetailView.vue";
-import {HOME_VIEW, TASK_CREATE_VIEW, TASK_DETAIL_VIEW} from "@/constants/constants";
+import {HOME_VIEW, TASK_CREATE_VIEW, TASK_DETAIL_VIEW, TASK_UPDATE_VIEW} from "@/constants/constants";
 import TaskCreateView from "@/views/TaskCreateView.vue";
 
 
@@ -27,6 +27,12 @@ const routes = [
       {
         path: 'tasks',
         name: TASK_CREATE_VIEW,
+        component: TaskCreateView,
+        props: true,
+      },
+      {
+        path: 'tasks/:id',
+        name: TASK_UPDATE_VIEW,
         component: TaskCreateView,
         props: true,
       },
