@@ -22,7 +22,7 @@
     </v-card-item>
 
     <v-card-actions>
-      <v-btn color="blue" class="mr-2" @click="emits('edit-clicked',  task.id)">
+      <v-btn color="blue" class="mr-2" @click="emits('edit-clicked',  task)">
         <v-icon start icon="mdi-pencil-outline"></v-icon>
         Edit Task
       </v-btn>

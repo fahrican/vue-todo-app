@@ -5,17 +5,25 @@ import NavbarComponent from "@/components/NavbarComponent.vue";
 import {useTaskNavigation} from "@/composables/useTaskNavigation";
 import {useRoute} from "vue-router";
 import TaskUpdateComponent from "@/components/TaskUpdateComponent.vue";
+import {useTaskStore} from "@/store/taskStore";
+import {onMounted} from "vue";
 
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 const route = useRoute();
 const taskId: string = route.params.id.toString();
+const taskStore = useTaskStore();
+
+onMounted(() => {
+  console.log("update view " + taskStore.taskToEdit);
+  console.log("update view " + taskStore.taskToEdit.description);
+});
 
 </script>
 
 <template>
   <NavbarComponent @taskTypeSelected="handleTaskTypeSelected" @logoClicked="logoClicked"/>
   <AppBackgroundComponent>
-    <TaskUpdateComponent :taskId="taskId" />
+    <TaskUpdateComponent :taskId="taskId"/>
   </AppBackgroundComponent>
 </template>
 
