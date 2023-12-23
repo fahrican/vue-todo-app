@@ -100,8 +100,6 @@ const deleteTask = (id: number) => {
 };
 
 const navigateToTaskUpdateView = (task: TaskFetchResponse) => {
-  console.log('navigateToTaskUpdateView: ' + task);
-  console.log('navigateToTaskUpdateView: ' + task.description);
   taskStore.setTaskToEdit(task);
   router.push({name: TASK_UPDATE_VIEW, params: {id: task.id.toString()}})
 };

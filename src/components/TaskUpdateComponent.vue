@@ -4,10 +4,8 @@ import {reactive, ref} from "vue";
 import {useField, useForm} from "vee-validate";
 import {Priority} from "@/types/Priority";
 import {TaskUpdateRequest} from "@/types/TaskUpdateRequest";
+import {useTaskStore} from "@/store/taskStore";
 
-const props = defineProps({
-  taskId: String,
-});
 
 const {handleSubmit, handleReset} = useForm({
   validationSchema: {
@@ -37,6 +35,8 @@ const request = reactive<TaskUpdateRequest>({
   isTaskOpen: isTaskOpen.value.value,
 });
 const emit = defineEmits(['updated-task']);
+const taskStore = useTaskStore();
+
 
 const submit = handleSubmit(values => {
   request.description = values.description;
@@ -45,21 +45,20 @@ const submit = handleSubmit(values => {
   request.priority = values.select;
   emit('updated-task', request);
 })
-const test = ref('Iron Man');
 
 </script>
 
 <template>
   <form @submit.prevent="submit">
     <v-text-field
-      v-model="test"
+      v-model="taskStore.taskToEdit.description"
       :counter="10"
       :error-messages="description.errorMessage.value"
       label="Description"
     />
 
     <v-checkbox
-      v-model="isReminderSet.value.value"
+      v-model="taskStore.taskToEdit.isReminderSet"
       :error-messages="isReminderSet.errorMessage.value"
       value="1"
       label="Reminder"
@@ -67,7 +66,7 @@ const test = ref('Iron Man');
     ></v-checkbox>
 
     <v-checkbox
-      v-model="isTaskOpen.value.value"
+      v-model="taskStore.taskToEdit.isTaskOpen"
       :error-messages="isTaskOpen.errorMessage.value"
       value="1"
       label="Open"
@@ -75,7 +74,7 @@ const test = ref('Iron Man');
     ></v-checkbox>
 
     <v-select
-      v-model="select.value.value"
+      v-model="taskStore.taskToEdit.priority"
       :items="priority"
       :error-messages="select.errorMessage.value"
       label="Priority"
