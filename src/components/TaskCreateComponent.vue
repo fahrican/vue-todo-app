@@ -82,21 +82,3 @@ const submit = handleSubmit(values => {
 
   </form>
 </template>
-
-<style scoped>
-
-.v-btn.clear-btn {
-  width: 49%;
-  background-color: red;
-  color: #EEEEEE;
-  margin: 0 0.2rem;
-}
-
-.v-btn.submit-btn {
-  width: 49%;
-  background-color: green;
-  color: #EEEEEE;
-  margin: 0 0.2rem;
-}
-
-</style>

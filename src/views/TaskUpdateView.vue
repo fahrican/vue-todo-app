@@ -16,7 +16,3 @@ const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
     <TaskUpdateComponent />
   </AppBackgroundComponent>
 </template>
-
-<style scoped>
-
-</style>

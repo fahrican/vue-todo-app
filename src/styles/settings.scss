@@ -36,3 +36,17 @@
 .mdi {
   font-size: 1rem; /* Adjust this value to increase or decrease the icon size */
 }
+
+.v-btn.clear-btn {
+  width: 49%;
+  background-color: red;
+  color: #EEEEEE;
+  margin: 0 0.2rem;
+}
+
+.v-btn.submit-btn {
+  width: 49%;
+  background-color: green;
+  color: #EEEEEE;
+  margin: 0 0.2rem;
+}
