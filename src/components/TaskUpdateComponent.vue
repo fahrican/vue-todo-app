@@ -60,7 +60,6 @@ const submit = handleSubmit(values => {
     <v-checkbox
       v-model="taskStore.taskToEdit.isReminderSet"
       :error-messages="isReminderSet.errorMessage.value"
-      value="1"
       label="Reminder"
       type="checkbox"
     ></v-checkbox>
@@ -68,7 +67,6 @@ const submit = handleSubmit(values => {
     <v-checkbox
       v-model="taskStore.taskToEdit.isTaskOpen"
       :error-messages="isTaskOpen.errorMessage.value"
-      value="1"
       label="Open"
       type="checkbox"
     ></v-checkbox>
