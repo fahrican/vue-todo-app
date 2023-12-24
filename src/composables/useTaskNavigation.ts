@@ -27,6 +27,7 @@ export function useTaskNavigation() {
   };
 
   const logoClicked = (): void => {
+    taskStore.selectedTaskType = TaskState[TaskState.OPEN];
     router.push({name: HOME_VIEW});
   };
 

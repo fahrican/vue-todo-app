@@ -29,7 +29,6 @@ watch(() => taskStore.selectedTaskType, (newType) => {
   fetchTasks(newType);
 });
 
-
 const openDeleteDialog = (task: { id: number, description: string }) => {
   selectedTaskId.value = task.id;
   selectedTaskDescription.value = task.description;
