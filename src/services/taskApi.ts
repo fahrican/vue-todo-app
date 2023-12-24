@@ -1,7 +1,6 @@
 import Api from "@/services/api";
-import {TaskCreateRequest} from "@/types/taskCreateRequest";
-import {TaskUpdateRequest} from "@/types/taskUpdateRequest";
 import {AxiosResponse} from "axios";
+import {TaskCreateRequest, TaskUpdateRequest} from "@/types/taskDto";
 
 interface TaskService {
   getTasks: (status: string) => Promise<AxiosResponse>;

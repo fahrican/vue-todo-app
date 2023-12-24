@@ -1,11 +1,10 @@
 <script setup lang="ts">
 
 import {reactive, ref} from "vue";
-import {TaskUpdateRequest} from "@/types/taskUpdateRequest";
 import {useTaskStore} from "@/store/taskStore";
-import {Priority} from "@/types/priority";
 import {useField} from "vee-validate";
 import {MIN_TASK_DESCRIPTION} from "@/constants/constants";
+import {Priority, TaskUpdateRequest} from "@/types/taskDto";
 
 
 const priority = ref([

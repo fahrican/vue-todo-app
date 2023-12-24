@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import {TaskFetchResponse} from "@/types/taskFetchResponse";
-import {TaskState} from "@/types/taskState";
+import {TaskFetchResponse, TaskState} from "@/types/taskDto";
 
 export const useTaskStore = defineStore('task', {
   state: () => ({

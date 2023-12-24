@@ -2,7 +2,6 @@
 import CardComponent from "@/components/CardComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import {onMounted, reactive, ref, watch} from "vue";
-import {TaskFetchResponse} from "@/types/taskFetchResponse";
 import {taskService} from "@/services/taskApi";
 import {TASK_DETAIL_VIEW, TASK_UPDATE_VIEW} from "@/constants/constants";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
@@ -10,6 +9,7 @@ import router from "@/router";
 import TaskDeleteDialog from "@/components/TaskDeleteDialogComponent.vue";
 import {useTaskStore} from "@/store/taskStore";
 import {useTaskNavigation} from "@/composables/useTaskNavigation";
+import {TaskFetchResponse} from "@/types/taskDto";
 
 
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();

@@ -1,7 +1,7 @@
-import {TaskState} from '@/types/taskState';
 import router from '@/router';
 import {OPEN_TASKS, CLOSED_TASKS, ALL_TASKS, HOME_VIEW} from '@/constants/constants';
 import {useTaskStore} from "@/store/taskStore";
+import {TaskState} from "@/types/taskDto";
 
 export function useTaskNavigation() {
 
