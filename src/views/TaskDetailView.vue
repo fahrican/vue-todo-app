@@ -2,7 +2,7 @@
 
 import {onMounted, reactive} from "vue";
 import {TaskFetchResponse} from "@/types/TaskFetchResponse";
-import {taskService} from "@/services/TaskApi";
+import {taskService} from "@/services/taskApi";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import TaskDetailCardComponent from "@/components/TaskDetailCardComponent.vue";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";

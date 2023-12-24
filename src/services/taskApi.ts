@@ -1,4 +1,4 @@
-import Api from "@/services/Api";
+import Api from "@/services/api";
 import {TaskCreateRequest} from "@/types/TaskCreateRequest";
 import {TaskUpdateRequest} from "@/types/TaskUpdateRequest";
 import {AxiosResponse} from "axios";

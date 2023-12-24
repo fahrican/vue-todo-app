@@ -5,7 +5,7 @@ import NavbarComponent from "@/components/NavbarComponent.vue";
 import {useTaskNavigation} from "@/composables/useTaskNavigation";
 import TaskUpdateComponent from "@/components/TaskUpdateComponent.vue";
 import {TaskUpdateRequest} from "@/types/TaskUpdateRequest";
-import {taskService} from "@/services/TaskApi";
+import {taskService} from "@/services/taskApi";
 import router from "@/router";
 
 const props = defineProps({
