@@ -53,14 +53,14 @@ const navigateToTaskUpdateView = (task: TaskFetchResponse) => {
   router.push({name: TASK_UPDATE_VIEW, params: {id: task.id.toString()}}).then();
 };
 
-async function fetchTasks(taskType: string): Promise<void> {
+function fetchTasks(taskType: string): void {
   tasks.length = 0;
-  try {
-    let response = await taskService.getTasks(taskType);
+  taskService.getTasks(taskType).then((response) => {
     response?.data.forEach((task: TaskFetchResponse) => tasks.push(task));
-  } catch (err) {
+  }).catch((err) => {
     console.log('error loading tasks: ' + err)
-  }
+    throw new Error(`Failed to loading tasks: ${err.message}`);
+  });
 }
 </script>
 

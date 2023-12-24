@@ -13,12 +13,11 @@ const createTask = (task: TaskCreateRequest) => {
   logoClicked();
 };
 
-function createNewTask(request: TaskCreateRequest) {
-  taskService.createTask(request)
-    .catch((err) => {
-      console.log('error creating task: ' + err)
-      throw new Error(`Failed to create new task: ${err.message}`);
-    });
+function createNewTask(request: TaskCreateRequest): void {
+  taskService.createTask(request).catch((err) => {
+    console.log('error creating task: ' + err)
+    throw new Error(`Failed to create new task: ${err.message}`);
+  });
 }
 
 </script>
