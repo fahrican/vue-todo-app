@@ -37,7 +37,7 @@ const openDeleteDialog = (task: { id: number, description: string }) => {
 
 const handleCardClicked = (id: number) => {
   selectedTaskId.value = id;
-  router.push({name: TASK_DETAIL_VIEW, params: {id: id.toString()}})
+  router.push({name: TASK_DETAIL_VIEW, params: {id: id.toString()}}).then();
 };
 
 const deleteTask = (id: number) => {
@@ -52,7 +52,7 @@ const deleteTask = (id: number) => {
 
 const navigateToTaskUpdateView = (task: TaskFetchResponse) => {
   taskStore.setTaskToEdit(task);
-  router.push({name: TASK_UPDATE_VIEW, params: {id: task.id.toString()}})
+  router.push({name: TASK_UPDATE_VIEW, params: {id: task.id.toString()}}).then();
 };
 
 async function fetchTasks(taskType: string): Promise<void> {

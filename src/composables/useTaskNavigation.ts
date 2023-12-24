@@ -23,12 +23,12 @@ export function useTaskNavigation() {
   };
 
   const navigateToTasksView = (): void => {
-    router.push({name: HOME_VIEW, query: {typeOfTask: taskStore.selectedTaskType}});
+    router.push({name: HOME_VIEW, query: {typeOfTask: taskStore.selectedTaskType}}).then() ;
   };
 
   const logoClicked = (): void => {
     taskStore.selectedTaskType = TaskState[TaskState.OPEN];
-    router.push({name: HOME_VIEW});
+    router.push({name: HOME_VIEW}).then();
   };
 
   return {

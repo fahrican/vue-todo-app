@@ -16,7 +16,7 @@ const logoClicked = () => {
 };
 
 const createTask = () => {
-  router.push({name: TASK_CREATE_VIEW});
+  router.push({name: TASK_CREATE_VIEW}).then();
 };
 
 </script>
