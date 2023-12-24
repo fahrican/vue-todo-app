@@ -11,3 +11,5 @@ export const TASK_DETAIL_VIEW = 'TaskDetail';
 export const TASK_CREATE_VIEW = 'TaskCreate';
 
 export const TASK_UPDATE_VIEW = 'TaskUpdate';
+
+export const MIN_TASK_DESCRIPTION = 3;

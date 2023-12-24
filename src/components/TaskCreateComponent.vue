@@ -3,11 +3,12 @@ import {reactive, ref} from 'vue'
 import {useField, useForm} from 'vee-validate'
 import {Priority} from "@/types/priority";
 import {TaskCreateRequest} from "@/types/taskCreateRequest";
+import {MIN_TASK_DESCRIPTION} from "@/constants/constants";
 
 const {handleSubmit, handleReset} = useForm({
   validationSchema: {
     description(value) {
-      if (value?.length >= 3) return true
+      if (value?.length >= MIN_TASK_DESCRIPTION) return true
       return 'Description needs to be at least 3 characters.'
     },
     select(value) {
@@ -16,23 +17,26 @@ const {handleSubmit, handleReset} = useForm({
     },
   },
 })
+
 const description = useField('description')
 const select = useField('select')
 const isReminderSet = useField('isReminderSet')
 const isTaskOpen = useField('isTaskOpen')
+
 const priority = ref([
   Priority[Priority.LOW],
   Priority[Priority.MEDIUM],
   Priority[Priority.HIGH],
 ])
+
 const request = reactive<TaskCreateRequest>({
   description: description.value.value,
   priority: select.value.value,
   isReminderSet: isReminderSet.value.value,
   isTaskOpen: isTaskOpen.value.value,
 });
-const emit = defineEmits(['create-new-task']);
 
+const emit = defineEmits(['create-new-task']);
 
 const submit = handleSubmit(values => {
   request.description = values.description;
@@ -51,7 +55,7 @@ const submit = handleSubmit(values => {
       :counter="10"
       :error-messages="description.errorMessage.value"
       label="Description"
-    ></v-text-field>
+    />
 
     <v-checkbox
       v-model="isReminderSet.value.value"
@@ -59,7 +63,7 @@ const submit = handleSubmit(values => {
       value="1"
       label="Reminder"
       type="checkbox"
-    ></v-checkbox>
+    />
 
     <v-checkbox
       v-model="isTaskOpen.value.value"
@@ -67,14 +71,14 @@ const submit = handleSubmit(values => {
       value="1"
       label="Open"
       type="checkbox"
-    ></v-checkbox>
+    />
 
     <v-select
       v-model="select.value.value"
       :items="priority"
       :error-messages="select.errorMessage.value"
       label="Priority"
-    ></v-select>
+    />
 
     <v-btn class="mb-4 clear-btn" @click="handleReset">clear</v-btn>
 
