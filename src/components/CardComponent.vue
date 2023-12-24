@@ -19,10 +19,10 @@ const getBorderColorClass = (isTaskOpen: boolean) => {
   }
 };
 
-const storeTask = (task: TaskFetchResponse) => {
+function storeTask(task: TaskFetchResponse) {
   taskStore.setTaskToEdit(task);
   emits('card-clicked', task.id);
-};
+}
 
 </script>
 <template>
@@ -30,7 +30,7 @@ const storeTask = (task: TaskFetchResponse) => {
           class="mx-auto v-card-bg nice-looking-card"
           :class="getBorderColorClass(task.isTaskOpen)"
   >
-    <v-card-item @click="() => storeTask(task)">
+    <v-card-item @click="storeTask(task)">
       <div>
         <div class="text-overline mb-2">
           <v-card-text class="d-flex justify-space-between align-items-center">
