@@ -6,6 +6,8 @@ import TaskUpdateComponent from "@/components/TaskUpdateComponent.vue";
 import {taskService} from "@/services/taskApi";
 import router from "@/router";
 import {TaskUpdateRequest} from "@/types/taskDto";
+import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue";
+import {ref} from "vue";
 
 const props = defineProps({
   id: {
@@ -15,6 +17,7 @@ const props = defineProps({
 });
 
 const {handleTaskTypeSelected, logoClicked, navigateToTasksView} = useTaskNavigation();
+const isLoading = ref(false);
 
 const clickedAbort = () => {
   router.back();
@@ -26,9 +29,14 @@ const editedTask = (id: number, request: TaskUpdateRequest) => {
 };
 
 async function updateTask(id: number, request: TaskUpdateRequest): Promise<void> {
-  await taskService.updateTask(id, request).catch((err) => {
+  isLoading.value = true;
+  await taskService.updateTask(id, request).then(() => {
+    isLoading.value = false;
+  }).catch((err) => {
     console.log('error updating task: ' + err)
     throw new Error(`Failed to update task: ${err.message}`);
+  }).finally(() => {
+    isLoading.value = false;
   });
 }
 </script>
@@ -37,5 +45,6 @@ async function updateTask(id: number, request: TaskUpdateRequest): Promise<void>
   <NavbarComponent @taskTypeSelected="handleTaskTypeSelected" @logoClicked="logoClicked"/>
   <AppBackgroundComponent>
     <TaskUpdateComponent @updated-task="editedTask" @abort-clicked="clickedAbort"/>
+    <SpinningLoadingComponent :is-loading="isLoading"/>
   </AppBackgroundComponent>
 </template>

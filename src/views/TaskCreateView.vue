@@ -36,7 +36,7 @@ async function createNewTask(request: TaskCreateRequest): Promise<void> {
   <NavbarComponent @task-type-selected="handleTaskTypeSelected" @logo-clicked="logoClicked"/>
   <AppBackgroundComponent>
     <TaskCreateComponent @create-new-task="createTask"/>
-    <SpinningLoadingComponent :is-loading="isLoading" />
+    <SpinningLoadingComponent :is-loading="isLoading"/>
   </AppBackgroundComponent>
 </template>
 
