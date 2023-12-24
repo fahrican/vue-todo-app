@@ -20,40 +20,31 @@
 <script lang="ts" setup>
 import CardComponent from "@/components/CardComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
-import {reactive, ref, onMounted} from "vue";
+import {onMounted, reactive, ref, watch} from "vue";
 import {TaskFetchResponse} from "@/types/TaskFetchResponse";
-import {TaskState} from "@/types/TaskState";
 import {taskService} from "@/services/TaskApi";
-import {
-  ALL_TASKS,
-  CLOSED_TASKS,
-  HOME_VIEW,
-  OPEN_TASKS,
-  TASK_DETAIL_VIEW,
-  TASK_UPDATE_VIEW
-} from "@/constants/constants";
+import {TASK_DETAIL_VIEW, TASK_UPDATE_VIEW} from "@/constants/constants";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import router from "@/router";
-import {useRoute} from 'vue-router';
 import TaskDeleteDialog from "@/components/TaskDeleteDialogComponent.vue";
 import {useTaskStore} from "@/store/taskStore";
+import {useTaskNavigation} from "@/composables/useTaskNavigation";
 
 
+const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 const tasks = reactive<TaskFetchResponse[]>([])
 const selectedTaskType = ref('');
 const selectedTaskId = ref(0);
-const route = useRoute();
 const isDeleteDialogSelected = ref(false);
 const selectedTaskDescription = ref('');
 const taskStore = useTaskStore();
 
+watch(() => taskStore.selectedTaskType, (newType) => {
+  fetchTasks(newType);
+});
 
 onMounted(() => {
-  if (typeof route.query.typeOfTask === 'string') {
-    fetchTasks(route.query.typeOfTask);
-  } else {
-    fetchTasks(TaskState[TaskState.OPEN]);
-  }
+  fetchTasks(taskStore.selectedTaskType);
 });
 
 const openDeleteDialog = (task: { id: number, description: string }) => {
@@ -65,28 +56,6 @@ const openDeleteDialog = (task: { id: number, description: string }) => {
 const handleCardClicked = (id: number) => {
   selectedTaskId.value = id;
   router.push({name: TASK_DETAIL_VIEW, params: {id: id.toString()}})
-};
-
-
-const handleTaskTypeSelected = (taskType: string) => {
-  switch (taskType) {
-    case OPEN_TASKS:
-      selectedTaskType.value = TaskState[TaskState.OPEN];
-      break;
-    case CLOSED_TASKS:
-      selectedTaskType.value = TaskState[TaskState.CLOSED];
-      break;
-    case ALL_TASKS:
-      selectedTaskType.value = '';
-      break;
-  }
-  fetchTasks(selectedTaskType.value);
-};
-
-const logoClicked = () => {
-  route.query.typeOfTask = TaskState[TaskState.OPEN];
-  router.push({name: HOME_VIEW});
-  fetchTasks(TaskState[TaskState.OPEN])
 };
 
 const deleteTask = (id: number) => {
