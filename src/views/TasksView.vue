@@ -10,6 +10,7 @@ import TaskDeleteDialog from "@/components/TaskDeleteDialogComponent.vue";
 import {useTaskStore} from "@/store/taskStore";
 import {useTaskNavigation} from "@/composables/useTaskNavigation";
 import {TaskFetchResponse} from "@/types/taskDto";
+import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue";
 
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 const tasks = reactive<TaskFetchResponse[]>([])
@@ -18,6 +19,7 @@ const selectedTaskId = ref(0);
 const isDeleteDialogSelected = ref(false);
 const selectedTaskDescription = ref('');
 const taskStore = useTaskStore();
+const isLoading = ref(false);
 
 
 onMounted(() => {
@@ -44,21 +46,29 @@ const navigateToTaskUpdateView = (task: TaskFetchResponse) => {
 };
 
 async function fetchTasks(taskType: string): Promise<void> {
+  isLoading.value = true;
   tasks.length = 0;
   await taskService.getTasks(taskType).then((response) => {
     response?.data.forEach((task: TaskFetchResponse) => tasks.push(task));
+    isLoading.value = false;
   }).catch((err) => {
     console.log('error loading tasks: ' + err)
     throw new Error(`Failed to loading tasks: ${err.message}`);
+  }).finally(() => {
+    isLoading.value = false;
   });
 }
 
 async function deleteTask(id: number): Promise<void> {
+  isLoading.value = true;
   await taskService.deleteTask(id).then(() => {
     fetchTasks(selectedTaskType.value);
+    isLoading.value = false;
   }).catch((err) => {
     console.log('error deleting task: ' + err)
     throw new Error(`Failed to delete task: ${err.message}`);
+  }).finally(() => {
+    isLoading.value = false;
   });
 }
 </script>
@@ -77,5 +87,6 @@ async function deleteTask(id: number): Promise<void> {
       :taskDescription="selectedTaskDescription.valueOf()"
       @confirm-delete="deleteTask(selectedTaskId.valueOf())"
     />
+    <SpinningLoadingComponent :is-loading="isLoading"/>
   </AppBackgroundComponent>
 </template>
