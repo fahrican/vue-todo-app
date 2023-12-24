@@ -6,6 +6,7 @@ import {taskService} from "@/services/taskApi";
 import {useTaskNavigation} from '@/composables/useTaskNavigation';
 import {TaskCreateRequest} from "@/types/taskDto";
 import {ref} from "vue";
+import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue";
 
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 const isLoading = ref(false);
@@ -35,24 +36,7 @@ async function createNewTask(request: TaskCreateRequest): Promise<void> {
   <NavbarComponent @task-type-selected="handleTaskTypeSelected" @logo-clicked="logoClicked"/>
   <AppBackgroundComponent>
     <TaskCreateComponent @create-new-task="createTask"/>
-    <div class="loading-container" v-if="isLoading">
-      <v-progress-circular indeterminate color="primary"></v-progress-circular>
-    </div>
+    <SpinningLoadingComponent :is-loading="isLoading" />
   </AppBackgroundComponent>
 </template>
 
-<style scoped>
-
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
-</style>
