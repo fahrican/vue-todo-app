@@ -3,7 +3,7 @@
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import TaskCreateComponent from "@/components/TaskCreateComponent.vue";
-import {TaskCreateRequest} from "@/types/TaskCreateRequest";
+import {TaskCreateRequest} from "@/types/taskCreateRequest";
 import {taskService} from "@/services/taskApi";
 import {useTaskNavigation} from '@/composables/useTaskNavigation';
 

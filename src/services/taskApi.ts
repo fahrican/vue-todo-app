@@ -1,6 +1,6 @@
 import Api from "@/services/api";
-import {TaskCreateRequest} from "@/types/TaskCreateRequest";
-import {TaskUpdateRequest} from "@/types/TaskUpdateRequest";
+import {TaskCreateRequest} from "@/types/taskCreateRequest";
+import {TaskUpdateRequest} from "@/types/taskUpdateRequest";
 import {AxiosResponse} from "axios";
 
 interface TaskService {

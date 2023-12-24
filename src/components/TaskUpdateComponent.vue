@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
 import {reactive, ref} from "vue";
-import {TaskUpdateRequest} from "@/types/TaskUpdateRequest";
+import {TaskUpdateRequest} from "@/types/taskUpdateRequest";
 import {useTaskStore} from "@/store/taskStore";
-import {Priority} from "@/types/Priority";
+import {Priority} from "@/types/priority";
 import {useField} from "vee-validate";
 
 

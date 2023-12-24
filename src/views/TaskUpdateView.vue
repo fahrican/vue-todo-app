@@ -4,7 +4,7 @@ import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import {useTaskNavigation} from "@/composables/useTaskNavigation";
 import TaskUpdateComponent from "@/components/TaskUpdateComponent.vue";
-import {TaskUpdateRequest} from "@/types/TaskUpdateRequest";
+import {TaskUpdateRequest} from "@/types/taskUpdateRequest";
 import {taskService} from "@/services/taskApi";
 import router from "@/router";
 

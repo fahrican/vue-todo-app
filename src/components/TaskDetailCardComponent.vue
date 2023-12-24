@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {PropType} from "vue";
-import {TaskFetchResponse} from "@/types/TaskFetchResponse";
+import {TaskFetchResponse} from "@/types/taskFetchResponse";
 
 const props = defineProps({
   task: Object as PropType<TaskFetchResponse>

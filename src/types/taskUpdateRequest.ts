@@ -1,4 +1,4 @@
-import {Priority} from "@/types/Priority";
+import {Priority} from "@/types/priority";
 
 export interface TaskUpdateRequest {
   description: string | null,

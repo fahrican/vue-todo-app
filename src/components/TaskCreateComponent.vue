@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {reactive, ref} from 'vue'
 import {useField, useForm} from 'vee-validate'
-import {Priority} from "@/types/Priority";
-import {TaskCreateRequest} from "@/types/TaskCreateRequest";
+import {Priority} from "@/types/priority";
+import {TaskCreateRequest} from "@/types/taskCreateRequest";
 
 const {handleSubmit, handleReset} = useForm({
   validationSchema: {
