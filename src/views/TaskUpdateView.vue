@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import {useTaskNavigation} from "@/composables/useTaskNavigation";

@@ -1,12 +1,10 @@
 <script setup lang="ts">
-
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import TaskCreateComponent from "@/components/TaskCreateComponent.vue";
 import {taskService} from "@/services/taskApi";
 import {useTaskNavigation} from '@/composables/useTaskNavigation';
 import {TaskCreateRequest} from "@/types/taskDto";
-
 
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 

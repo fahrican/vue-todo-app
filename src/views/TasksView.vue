@@ -11,7 +11,6 @@ import {useTaskStore} from "@/store/taskStore";
 import {useTaskNavigation} from "@/composables/useTaskNavigation";
 import {TaskFetchResponse} from "@/types/taskDto";
 
-
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 const tasks = reactive<TaskFetchResponse[]>([])
 const selectedTaskType = ref('');
@@ -63,12 +62,10 @@ async function fetchTasks(taskType: string): Promise<void> {
     console.log('error loading tasks: ' + err)
   }
 }
-
 </script>
 
 <template>
   <NavbarComponent @task-type-selected="handleTaskTypeSelected" @logo-clicked="logoClicked"/>
-
   <AppBackgroundComponent>
     <CardComponent
       :tasks="tasks"
@@ -82,5 +79,4 @@ async function fetchTasks(taskType: string): Promise<void> {
       @confirm-delete="deleteTask(selectedTaskId.valueOf())"
     />
   </AppBackgroundComponent>
-
 </template>
