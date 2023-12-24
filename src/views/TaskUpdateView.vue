@@ -8,6 +8,13 @@ import {TaskUpdateRequest} from "@/types/TaskUpdateRequest";
 import {taskService} from "@/services/TaskApi";
 import router from "@/router";
 
+const props = defineProps({
+  id: {
+    type: String,
+    required: true
+  }
+});
+
 const {handleTaskTypeSelected, logoClicked, navigateToTasksView} = useTaskNavigation();
 
 const clickedAbort = () => {
