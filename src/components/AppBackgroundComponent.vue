@@ -4,11 +4,7 @@
       <v-container>
         <v-row>
           <v-col>
-            <v-sheet
-              min-height="70vh"
-              rounded="lg"
-              class="v-sheet-padding"
-            >
+            <v-sheet min-height="70vh" rounded="lg" class="v-sheet-padding">
               <slot></slot>
             </v-sheet>
           </v-col>
