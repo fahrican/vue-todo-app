@@ -44,10 +44,10 @@ const createTask = () => {
         @click="selectTaskType(link)"
         :text="link"
         variant="text"
-        v-if="!isMobile.value">
-      </v-btn>
+        v-if="!isMobile.value"/>
 
-      <v-spacer></v-spacer>
+      <v-spacer/>
+
       <v-btn
         class="text-none text-subtitle-1"
         color="#05B990"
@@ -75,4 +75,5 @@ const createTask = () => {
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
+
 </template>
