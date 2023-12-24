@@ -2,11 +2,11 @@
 
 import {onMounted, reactive} from "vue";
 import {TaskFetchResponse} from "@/types/taskFetchResponse";
-import {taskService} from "@/services/taskApi";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import TaskDetailCardComponent from "@/components/TaskDetailCardComponent.vue";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import {useTaskNavigation} from '@/composables/useTaskNavigation';
+import {useTaskStore} from "@/store/taskStore";
 
 
 const props = defineProps({
@@ -23,19 +23,13 @@ const task = reactive<TaskFetchResponse>({
 })
 
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
+const taskStore = useTaskStore();
 
-onMounted(fetchTaskById);
+onMounted(showTaskDetails);
 
-async function fetchTaskById() {
-  try {
-    const response = await taskService.getTaskBydId(props.id);
-    Object.assign(task, response.data);
-  } catch (err) {
-    console.log('error loading tasks: ' + err)
-  }
+function showTaskDetails() {
+  Object.assign(task, taskStore.taskToEdit);
 }
-
-fetchTaskById()
 </script>
 
 <template>

@@ -3,7 +3,7 @@
           class="mx-auto v-card-bg nice-looking-card"
           :class="getBorderColorClass(task.isTaskOpen)"
   >
-    <v-card-item @click="emits('card-clicked', task.id)">
+    <v-card-item @click="() => storeTask(task)">
       <div>
         <div class="text-overline mb-2">
           <v-card-text class="d-flex justify-space-between align-items-center">
@@ -37,10 +37,14 @@
 
 <script lang="ts" setup>
 
+import {useTaskStore} from "@/store/taskStore";
+import {TaskFetchResponse} from "@/types/taskFetchResponse";
+
 const props = defineProps({
   tasks: Array,
 });
 
+const taskStore = useTaskStore();
 const emits = defineEmits(['card-clicked', 'delete-clicked', 'edit-clicked']);
 
 const getBorderColorClass = (isTaskOpen: boolean) => {
@@ -49,6 +53,11 @@ const getBorderColorClass = (isTaskOpen: boolean) => {
   } else {
     return 'black-border';
   }
+};
+
+const storeTask = (task: TaskFetchResponse) => {
+  taskStore.setTaskToEdit(task);
+  emits('card-clicked', task.id);
 };
 
 </script>

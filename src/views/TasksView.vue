@@ -36,7 +36,6 @@ const openDeleteDialog = (task: { id: number, description: string }) => {
 };
 
 const handleCardClicked = (id: number) => {
-  selectedTaskId.value = id;
   router.push({name: TASK_DETAIL_VIEW, params: {id: id.toString()}}).then();
 };
 
