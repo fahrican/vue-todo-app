@@ -15,13 +15,12 @@ const createTask = (task: TaskCreateRequest) => {
   navigateToTasksView();
 };
 
-async function createNewTask(request: TaskCreateRequest) {
-  try {
-    let response = await taskService.createTask(request);
-    console.log(response.data);
-  } catch (err) {
-    console.log('error loading tasks: ' + err)
-  }
+function createNewTask(request: TaskCreateRequest) {
+  taskService.createTask(request)
+    .catch((err) => {
+      console.log('error creating task: ' + err)
+      throw new Error(`Failed to create new task: ${err.message}`);
+    });
 }
 
 </script>
