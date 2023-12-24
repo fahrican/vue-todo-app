@@ -2,6 +2,14 @@
 
 import {ALL_TASKS, CLOSED_TASKS, OPEN_TASKS, TASK_CREATE_VIEW} from "@/constants/constants";
 import router from "@/router";
+import {computed, onMounted, unref} from 'vue'
+import {useDisplay} from 'vuetify'
+
+
+const display = useDisplay()
+const isMobile = computed(() => {
+  return unref(display.mobile)
+})
 
 const links: string[] = [OPEN_TASKS, CLOSED_TASKS, ALL_TASKS]
 
@@ -19,32 +27,38 @@ const createTask = () => {
   router.push({name: TASK_CREATE_VIEW}).then();
 };
 
+onMounted(() => {
+  console.log(isMobile.value) // true
+})
+
 </script>
 
 <template>
-  <v-app-bar flat>
-    <v-container class="mx-auto d-flex align-center justify-center">
-      <v-app-bar-title>
-        <v-img src="../assets/logo.png" max-height="70" max-width="70" @click="logoClicked"></v-img>
-      </v-app-bar-title>
+  <v-banner v-if="!isMobile">
+    <v-app-bar flat>
+      <v-container class="mx-auto d-flex align-center justify-center">
+        <v-app-bar-title>
+          <v-img src="../assets/logo.png" max-height="70" max-width="70" @click="logoClicked"></v-img>
+        </v-app-bar-title>
 
-      <v-btn
-        v-for="link in links"
-        :key="link"
-        @click="selectTaskType(link)"
-        :text="link"
-        variant="text">
-      </v-btn>
+        <v-btn
+          v-for="link in links"
+          :key="link"
+          @click="selectTaskType(link)"
+          :text="link"
+          variant="text">
+        </v-btn>
 
-      <v-spacer></v-spacer>
-      <v-btn
-        class="text-none text-subtitle-1"
-        color="#05B990"
-        size="small"
-        variant="outlined"
-        @click="createTask">
-        Create Task
-      </v-btn>
-    </v-container>
-  </v-app-bar>
+        <v-spacer></v-spacer>
+        <v-btn
+          class="text-none text-subtitle-1"
+          color="#05B990"
+          size="small"
+          variant="outlined"
+          @click="createTask">
+          Create Task
+        </v-btn>
+      </v-container>
+    </v-app-bar>
+  </v-banner>
 </template>
