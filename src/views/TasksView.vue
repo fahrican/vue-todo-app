@@ -38,28 +38,27 @@ const handleCardClicked = (id: number) => {
   router.push({name: TASK_DETAIL_VIEW, params: {id: id.toString()}}).then();
 };
 
-const deleteTask = (id: number) => {
-  try {
-    taskService.deleteTask(id).then(() => {
-      fetchTasks(selectedTaskType.value);
-    });
-  } catch (err) {
-    console.log('error deleting task: ' + err)
-  }
-};
-
 const navigateToTaskUpdateView = (task: TaskFetchResponse) => {
   taskStore.setTaskToEdit(task);
   router.push({name: TASK_UPDATE_VIEW, params: {id: task.id.toString()}}).then();
 };
 
-function fetchTasks(taskType: string): void {
+async function fetchTasks(taskType: string): Promise<void> {
   tasks.length = 0;
-  taskService.getTasks(taskType).then((response) => {
+  await taskService.getTasks(taskType).then((response) => {
     response?.data.forEach((task: TaskFetchResponse) => tasks.push(task));
   }).catch((err) => {
     console.log('error loading tasks: ' + err)
     throw new Error(`Failed to loading tasks: ${err.message}`);
+  });
+}
+
+async function deleteTask(id: number): Promise<void> {
+  await taskService.deleteTask(id).then(() => {
+    fetchTasks(selectedTaskType.value);
+  }).catch((err) => {
+    console.log('error deleting task: ' + err)
+    throw new Error(`Failed to delete task: ${err.message}`);
   });
 }
 </script>

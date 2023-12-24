@@ -13,8 +13,8 @@ const createTask = (task: TaskCreateRequest) => {
   logoClicked();
 };
 
-function createNewTask(request: TaskCreateRequest): void {
-  taskService.createTask(request).catch((err) => {
+async function createNewTask(request: TaskCreateRequest): Promise<void> {
+  await taskService.createTask(request).catch((err) => {
     console.log('error creating task: ' + err)
     throw new Error(`Failed to create new task: ${err.message}`);
   });

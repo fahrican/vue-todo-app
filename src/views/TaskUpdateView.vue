@@ -25,8 +25,8 @@ const editedTask = (id: number, request: TaskUpdateRequest) => {
   navigateToTasksView();
 };
 
-function updateTask(id: number, request: TaskUpdateRequest): void {
-  taskService.updateTask(id, request).catch((err) => {
+async function updateTask(id: number, request: TaskUpdateRequest): Promise<void> {
+  await taskService.updateTask(id, request).catch((err) => {
     console.log('error updating task: ' + err)
     throw new Error(`Failed to update task: ${err.message}`);
   });
