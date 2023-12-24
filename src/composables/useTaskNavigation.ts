@@ -23,7 +23,7 @@ export function useTaskNavigation() {
   };
 
   const navigateToTasksView = (): void => {
-    router.push({name: HOME_VIEW, query: {typeOfTask: taskStore.selectedTaskType}}).then() ;
+    router.push({name: HOME_VIEW, query: {typeOfTask: taskStore.selectedTaskType}}).then();
   };
 
   const logoClicked = (): void => {

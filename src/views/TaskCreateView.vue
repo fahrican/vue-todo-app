@@ -8,11 +8,11 @@ import {taskService} from "@/services/taskApi";
 import {useTaskNavigation} from '@/composables/useTaskNavigation';
 
 
-const {handleTaskTypeSelected, navigateToTasksView, logoClicked} = useTaskNavigation();
+const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 
 const createTask = (task: TaskCreateRequest) => {
   createNewTask(task);
-  navigateToTasksView();
+  logoClicked();
 };
 
 function createNewTask(request: TaskCreateRequest) {
@@ -26,13 +26,8 @@ function createNewTask(request: TaskCreateRequest) {
 </script>
 
 <template>
-
   <NavbarComponent @task-type-selected="handleTaskTypeSelected" @logo-clicked="logoClicked"/>
   <AppBackgroundComponent>
     <TaskCreateComponent @create-new-task="createTask"/>
   </AppBackgroundComponent>
 </template>
-
-<style scoped>
-
-</style>
