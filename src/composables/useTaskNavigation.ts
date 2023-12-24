@@ -7,29 +7,26 @@ export function useTaskNavigation() {
 
   const taskStore = useTaskStore();
 
-  const handleTaskTypeSelected = (taskType: string) => {
+  const handleTaskTypeSelected = (taskType: string): void => {
     switch (taskType) {
       case OPEN_TASKS:
         taskStore.selectedTaskType = TaskState[TaskState.OPEN];
-        console.log("handleTaskTypeSelected:" + taskStore.selectedTaskType);
         break;
       case CLOSED_TASKS:
         taskStore.selectedTaskType = TaskState[TaskState.CLOSED];
-        console.log("handleTaskTypeSelected:" + taskStore.selectedTaskType);
         break;
       case ALL_TASKS:
         taskStore.selectedTaskType = '';
-        console.log("handleTaskTypeSelected:" + taskStore.selectedTaskType);
         break;
     }
     navigateToTasksView();
   };
 
-  const navigateToTasksView = () => {
+  const navigateToTasksView = (): void => {
     router.push({name: HOME_VIEW, query: {typeOfTask: taskStore.selectedTaskType}});
   };
 
-  const logoClicked = () => {
+  const logoClicked = (): void => {
     router.push({name: HOME_VIEW});
   };
 

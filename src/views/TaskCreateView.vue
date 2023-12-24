@@ -28,7 +28,7 @@ async function createNewTask(request: TaskCreateRequest) {
 
 <template>
 
-  <NavbarComponent @taskTypeSelected="handleTaskTypeSelected" @logoClicked="logoClicked"/>
+  <NavbarComponent @task-type-selected="handleTaskTypeSelected" @logo-clicked="logoClicked"/>
   <AppBackgroundComponent>
     <TaskCreateComponent @create-new-task="createTask"/>
   </AppBackgroundComponent>

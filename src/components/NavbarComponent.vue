@@ -5,14 +5,14 @@ import router from "@/router";
 
 const links: string[] = [OPEN_TASKS, CLOSED_TASKS, ALL_TASKS]
 
-const emit = defineEmits(['taskTypeSelected', 'logoClicked']);
+const emit = defineEmits(['task-type-selected', 'logo-clicked']);
 
 const selectTaskType = (taskType: string) => {
-  emit('taskTypeSelected', taskType);
+  emit('task-type-selected', taskType);
 };
 
 const logoClicked = () => {
-  emit('logoClicked');
+  emit('logo-clicked');
 };
 
 const createTask = () => {

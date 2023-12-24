@@ -1,22 +1,3 @@
-<template>
-  <NavbarComponent @taskTypeSelected="handleTaskTypeSelected" @logoClicked="logoClicked"/>
-
-  <AppBackgroundComponent>
-    <CardComponent
-      :tasks="tasks"
-      @card-clicked="handleCardClicked"
-      @delete-clicked="openDeleteDialog"
-      @edit-clicked="navigateToTaskUpdateView"
-    />
-    <TaskDeleteDialog
-      v-model="isDeleteDialogSelected"
-      :taskDescription="selectedTaskDescription.valueOf()"
-      @confirm-delete="deleteTask(selectedTaskId.valueOf())"
-    />
-  </AppBackgroundComponent>
-
-</template>
-
 <script lang="ts" setup>
 import CardComponent from "@/components/CardComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
@@ -39,13 +20,15 @@ const isDeleteDialogSelected = ref(false);
 const selectedTaskDescription = ref('');
 const taskStore = useTaskStore();
 
-watch(() => taskStore.selectedTaskType, (newType) => {
-  fetchTasks(newType);
-});
 
 onMounted(() => {
   fetchTasks(taskStore.selectedTaskType);
 });
+
+watch(() => taskStore.selectedTaskType, (newType) => {
+  fetchTasks(newType);
+});
+
 
 const openDeleteDialog = (task: { id: number, description: string }) => {
   selectedTaskId.value = task.id;
@@ -73,7 +56,7 @@ const navigateToTaskUpdateView = (task: TaskFetchResponse) => {
   router.push({name: TASK_UPDATE_VIEW, params: {id: task.id.toString()}})
 };
 
-async function fetchTasks(taskType: string) {
+async function fetchTasks(taskType: string): Promise<void> {
   tasks.length = 0;
   try {
     let response = await taskService.getTasks(taskType);
@@ -84,3 +67,22 @@ async function fetchTasks(taskType: string) {
 }
 
 </script>
+
+<template>
+  <NavbarComponent @task-type-selected="handleTaskTypeSelected" @logo-clicked="logoClicked"/>
+
+  <AppBackgroundComponent>
+    <CardComponent
+      :tasks="tasks"
+      @card-clicked="handleCardClicked"
+      @delete-clicked="openDeleteDialog"
+      @edit-clicked="navigateToTaskUpdateView"
+    />
+    <TaskDeleteDialog
+      v-model="isDeleteDialogSelected"
+      :taskDescription="selectedTaskDescription.valueOf()"
+      @confirm-delete="deleteTask(selectedTaskId.valueOf())"
+    />
+  </AppBackgroundComponent>
+
+</template>

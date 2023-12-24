@@ -40,7 +40,7 @@ fetchTaskById()
 
 <template>
 
-  <NavbarComponent @taskTypeSelected="handleTaskTypeSelected" @logoClicked="logoClicked"/>
+  <NavbarComponent @task-type-selected="handleTaskTypeSelected" @logo-clicked="logoClicked"/>
   <AppBackgroundComponent>
     <TaskDetailCardComponent :task="task"/>
   </AppBackgroundComponent>
