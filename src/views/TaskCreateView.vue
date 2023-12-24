@@ -5,8 +5,10 @@ import TaskCreateComponent from "@/components/TaskCreateComponent.vue";
 import {taskService} from "@/services/taskApi";
 import {useTaskNavigation} from '@/composables/useTaskNavigation';
 import {TaskCreateRequest} from "@/types/taskDto";
+import {ref} from "vue";
 
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
+const isLoading = ref(false);
 
 const createTask = (task: TaskCreateRequest) => {
   createNewTask(task);
@@ -14,17 +16,43 @@ const createTask = (task: TaskCreateRequest) => {
 };
 
 async function createNewTask(request: TaskCreateRequest): Promise<void> {
-  await taskService.createTask(request).catch((err) => {
-    console.log('error creating task: ' + err)
-    throw new Error(`Failed to create new task: ${err.message}`);
-  });
+  isLoading.value = true;
+  await taskService.createTask(request)
+    .then(() => {
+      isLoading.value = false;
+    })
+    .catch((err) => {
+      console.log('error creating task: ' + err);
+      throw new Error(`Failed to create new task: ${err.message}`);
+    })
+    .finally(() => {
+      isLoading.value = false;
+    });
 }
-
 </script>
 
 <template>
   <NavbarComponent @task-type-selected="handleTaskTypeSelected" @logo-clicked="logoClicked"/>
   <AppBackgroundComponent>
     <TaskCreateComponent @create-new-task="createTask"/>
+    <div class="loading-container" v-if="isLoading">
+      <v-progress-circular indeterminate color="primary"></v-progress-circular>
+    </div>
   </AppBackgroundComponent>
 </template>
+
+<style scoped>
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+</style>
