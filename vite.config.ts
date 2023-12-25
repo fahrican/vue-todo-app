@@ -41,4 +41,14 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  test: {
+    globals: true,
+    include: ['tests/spec/*.ts', 'tests/spec/*.tsx'],
+    environment: 'jsdom',
+    server: {
+      deps: {
+        inline: ['vuetify'],
+      },
+    },
+  },
 })
