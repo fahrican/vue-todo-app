@@ -34,7 +34,6 @@ async function updateTask(id: number, request: TaskUpdateRequest): Promise<void>
     isLoading.value = false;
   }).catch((err) => {
     console.log('error updating task: ' + err)
-    throw new Error(`Failed to update task: ${err.message}`);
   }).finally(() => {
     isLoading.value = false;
   });

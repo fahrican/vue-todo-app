@@ -24,7 +24,6 @@ async function createNewTask(request: TaskCreateRequest): Promise<void> {
     })
     .catch((err) => {
       console.log('error creating task: ' + err);
-      throw new Error(`Failed to create new task: ${err.message}`);
     })
     .finally(() => {
       isLoading.value = false;

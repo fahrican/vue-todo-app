@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import CardComponent from "@/components/CardComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
-import {onMounted, reactive, ref, watch} from "vue";
+import {onActivated, onMounted, reactive, ref, watch} from "vue";
 import {taskService} from "@/services/taskApi";
 import {TASK_DETAIL_VIEW, TASK_UPDATE_VIEW} from "@/constants/constants";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
@@ -48,15 +48,14 @@ const navigateToTaskUpdateView = (task: TaskFetchResponse) => {
 async function fetchTasks(taskType: string): Promise<void> {
   isLoading.value = true;
   tasks.length = 0;
-  await taskService.getTasks(taskType).then((response) => {
-    response?.data.forEach((task: TaskFetchResponse) => tasks.push(task));
+  try {
+    const response = await taskService.getTasks(taskType);
+    tasks.splice(0, tasks.length, ...response.data); // Efficiently replace the contents of tasks
+  } catch (err) {
+    console.error('Error loading tasks:', err);
+  } finally {
     isLoading.value = false;
-  }).catch((err) => {
-    console.log('error loading tasks: ' + err)
-    throw new Error(`Failed to loading tasks: ${err.message}`);
-  }).finally(() => {
-    isLoading.value = false;
-  });
+  }
 }
 
 async function deleteTask(id: number): Promise<void> {
@@ -66,7 +65,6 @@ async function deleteTask(id: number): Promise<void> {
     isLoading.value = false;
   }).catch((err) => {
     console.log('error deleting task: ' + err)
-    throw new Error(`Failed to delete task: ${err.message}`);
   }).finally(() => {
     isLoading.value = false;
   });
