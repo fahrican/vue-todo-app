@@ -20,7 +20,6 @@ const {handleSubmit, handleReset} = useForm({
 const description = useField('description')
 const select = useField('select')
 const isReminderSet = useField('isReminderSet')
-const isTaskOpen = useField('isTaskOpen')
 
 const priority = ref([
   Priority[Priority.LOW],
@@ -30,9 +29,9 @@ const priority = ref([
 
 const request = reactive<TaskCreateRequest>({
   description: description.value.value,
-  priority: select.value.value,
   isReminderSet: isReminderSet.value.value,
-  isTaskOpen: isTaskOpen.value.value,
+  isTaskOpen: true,
+  priority: select.value.value,
 });
 
 const emit = defineEmits(['create-new-task']);
@@ -40,7 +39,6 @@ const emit = defineEmits(['create-new-task']);
 const submit = handleSubmit(values => {
   request.description = values.description;
   request.isReminderSet = values.isReminderSet !== undefined;
-  request.isTaskOpen = values.isTaskOpen !== undefined;
   request.priority = values.select;
   emit('create-new-task', request);
 })
@@ -61,14 +59,6 @@ const submit = handleSubmit(values => {
       :error-messages="isReminderSet.errorMessage.value"
       value="1"
       label="Reminder"
-      type="checkbox"
-    />
-
-    <v-checkbox
-      v-model="isTaskOpen.value.value"
-      :error-messages="isTaskOpen.errorMessage.value"
-      value="1"
-      label="Open"
       type="checkbox"
     />
 

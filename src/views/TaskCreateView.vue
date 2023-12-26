@@ -8,12 +8,12 @@ import {TaskCreateRequest} from "@/types/taskDto";
 import {ref} from "vue";
 import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue";
 
-const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
+const {handleTaskTypeSelected, logoClicked, navigateToTasksView} = useTaskNavigation();
 const isLoading = ref(false);
 
 const createTask = (task: TaskCreateRequest) => {
   createNewTask(task);
-  logoClicked();
+  navigateToTasksView();
 };
 
 async function createNewTask(request: TaskCreateRequest): Promise<void> {
