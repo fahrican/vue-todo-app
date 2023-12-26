@@ -49,7 +49,7 @@ async function fetchTasks(taskType: string): Promise<void> {
   tasks.length = 0;
   try {
     const response = await taskService.getTasks(taskType);
-    tasks.splice(0, tasks.length, ...response.data); // Efficiently replace the contents of tasks
+    tasks.splice(0, tasks.length, ...response.data);
   } catch (err) {
     console.error('Error loading tasks:', err);
   } finally {
