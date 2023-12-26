@@ -14,11 +14,10 @@ import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue"
 
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 const tasks = reactive<TaskFetchResponse[]>([])
-const selectedTaskType = ref('');
+const taskStore = useTaskStore();
 const selectedTaskId = ref(0);
 const isDeleteDialogSelected = ref(false);
 const selectedTaskDescription = ref('');
-const taskStore = useTaskStore();
 const isLoading = ref(false);
 
 
@@ -61,7 +60,7 @@ async function fetchTasks(taskType: string): Promise<void> {
 async function deleteTask(id: number): Promise<void> {
   isLoading.value = true;
   await taskService.deleteTask(id).then(() => {
-    fetchTasks(selectedTaskType.value);
+    fetchTasks(taskStore.selectedTaskType);
     isLoading.value = false;
   }).catch((err) => {
     console.log('error deleting task: ' + err)
