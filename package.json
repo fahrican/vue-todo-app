@@ -19,7 +19,8 @@
     "vee-validate": "^4.12.3",
     "vue": "^3.2.0",
     "vue-router": "^4.0.0",
-    "vuetify": "^3.0.0"
+    "vuetify": "^3.0.0",
+    "whatwg-fetch": "^3.6.20"
   },
   "devDependencies": {
     "@babel/types": "^7.21.4",
