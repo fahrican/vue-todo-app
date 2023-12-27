@@ -46,6 +46,8 @@ export default mergeConfig(
       port: 3000,
     },
     test: {
+      globals: true,
+      setupFiles: "src/setupTests.ts",
       server: {
         deps: {
           inline: ['vuetify']
