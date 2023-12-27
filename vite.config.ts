@@ -43,7 +43,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'jsdom',
+    environment: 'happy-dom',
     includeSource: ['tests/**/*.{js,vue,ts,tsx}'],
     server: {
       deps: {
