@@ -53,7 +53,7 @@ devDependencies:
     specifier: ^18.15.0
     version: 18.19.3
   '@vitejs/plugin-vue':
-    specifier: ^4.0.0
+    specifier: ^4.5.2
     version: 4.5.2(vite@5.0.10)(vue@3.3.11)
   '@vitest/coverage-v8':
     specifier: ^1.1.0
