@@ -1,7 +1,6 @@
-import axios from "axios";
+import axios, {AxiosInstance} from "axios";
 
-export default (url = 'https://backend4frontend-dnfm.onrender.com/api/v1/') => {
-  return axios.create({
-    baseURL: url
-  });
-}
+const baseURL = 'https://backend4frontend-dnfm.onrender.com/api/v1/';
+const instance: AxiosInstance = axios.create({baseURL});
+
+export default instance;

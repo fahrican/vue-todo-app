@@ -1,4 +1,4 @@
-import Api from "@/services/api";
+import api from "@/services/api";
 import {AxiosResponse} from "axios";
 import {TaskCreateRequest, TaskUpdateRequest} from "@/types/taskDto";
 
@@ -12,15 +12,15 @@ interface TaskService {
 
 export const taskService: TaskService = {
   getTasks(status: string) {
-    return Api().get(`/tasks?status=${status}`)
+    return api.get(`/tasks?status=${status}`);
   },
   createTask(data: TaskCreateRequest) {
-    return Api().post('/tasks', data)
+    return api.post('/tasks', data)
   },
   deleteTask(id: number) {
-    return Api().delete(`/tasks/${id}`)
+    return api.delete(`/tasks/${id}`)
   },
   updateTask(id: number, data: TaskUpdateRequest) {
-    return Api().patch(`/tasks/${id}`, data)
+    return api.patch(`/tasks/${id}`, data)
   }
 }
