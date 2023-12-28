@@ -42,6 +42,10 @@
   background-color: red;
   color: #EEEEEE;
   margin: 0 0.2rem;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 }
 
 .v-btn.submit-btn {
@@ -49,4 +53,8 @@
   background-color: green;
   color: #EEEEEE;
   margin: 0 0.2rem;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 }
