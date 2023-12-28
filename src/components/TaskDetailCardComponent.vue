@@ -4,7 +4,7 @@ import {PropType} from "vue";
 import {formattedDate} from "@/composables/formattedDate";
 import {TaskFetchResponse} from "@/types/taskDto";
 
-const props = defineProps({
+defineProps({
   task: Object as PropType<TaskFetchResponse>
 });
 
@@ -17,42 +17,42 @@ const props = defineProps({
 
       <v-list-item>
         <template v-slot:subtitle>
-          <span class="font-weight-bold">Task ID: </span> {{ props.task.id }}
+          <span class="font-weight-bold">Task ID: </span> {{ task.id }}
         </template>
       </v-list-item>
       <v-divider inset></v-divider>
 
       <v-list-item>
         <template v-slot:subtitle>
-          <span class="font-weight-bold">Description: </span> {{ props.task.description }}
+          <span class="font-weight-bold">Description: </span> {{ task.description }}
         </template>
       </v-list-item>
       <v-divider inset></v-divider>
 
       <v-list-item>
         <template v-slot:subtitle>
-          <span class="font-weight-bold">Reminder set: </span> {{ props.task.isReminderSet }}
+          <span class="font-weight-bold">Reminder set: </span> {{ task.isReminderSet }}
         </template>
       </v-list-item>
       <v-divider inset></v-divider>
 
       <v-list-item>
         <template v-slot:subtitle>
-          <span class="font-weight-bold">Task open: </span> {{ props.task.isTaskOpen }}
+          <span class="font-weight-bold">Task open: </span> {{ task.isTaskOpen }}
         </template>
       </v-list-item>
       <v-divider inset></v-divider>
 
       <v-list-item>
         <template v-slot:subtitle>
-          <span class="font-weight-bold">Created on: </span> {{ formattedDate(props.task.createdOn) }}
+          <span class="font-weight-bold">Created on: </span> {{ formattedDate(task.createdOn) }}
         </template>
       </v-list-item>
       <v-divider inset></v-divider>
 
       <v-list-item>
         <template v-slot:subtitle>
-          <span class="font-weight-bold">Priority: </span> {{ props.task.priority }}
+          <span class="font-weight-bold">Priority: </span> {{ task.priority }}
         </template>
       </v-list-item>
       <v-divider inset></v-divider>

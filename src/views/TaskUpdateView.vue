@@ -9,7 +9,8 @@ import {TaskUpdateRequest} from "@/types/taskDto";
 import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue";
 import {ref} from "vue";
 
-const props = defineProps({
+
+defineProps({
   id: {
     type: String,
     required: true

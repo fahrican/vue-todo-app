@@ -12,6 +12,7 @@ import {useTaskNavigation} from "@/composables/useTaskNavigation";
 import {TaskFetchResponse} from "@/types/taskDto";
 import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue";
 
+
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 const tasks = reactive<TaskFetchResponse[]>([])
 const taskStore = useTaskStore();

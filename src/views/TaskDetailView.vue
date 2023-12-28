@@ -7,7 +7,7 @@ import {useTaskNavigation} from '@/composables/useTaskNavigation';
 import {useTaskStore} from "@/store/taskStore";
 import {TaskFetchResponse} from "@/types/taskDto";
 
-const props = defineProps({
+defineProps({
   id: String
 });
 

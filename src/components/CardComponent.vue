@@ -4,7 +4,7 @@ import {useTaskStore} from "@/store/taskStore";
 import {formattedDate} from "@/composables/formattedDate";
 import {TaskFetchResponse} from "@/types/taskDto";
 
-const props = defineProps({
+defineProps({
   tasks: Array,
 });
 
