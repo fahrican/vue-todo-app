@@ -47,25 +47,28 @@ defineExpose({
         <v-img src="../assets/logo.png" max-height="70" max-width="70" @click="logoClicked"></v-img>
       </v-app-bar-title>
 
-      <v-btn
-        v-for="link in links"
-        :key="link"
-        @click="selectTaskType(link)"
-        :text="link"
-        variant="text"
-        v-if="!isMobile.value"/>
+      <v-container v-if="!isMobile.value">
+        <v-btn
+          v-for="link in links"
+          :key="link"
+          @click="selectTaskType(link)"
+          :text="link"
+          variant="text">
+          {{ link }}
+        </v-btn>
 
-      <v-spacer/>
+        <v-spacer/>
 
-      <v-btn
-        class="text-none text-subtitle-1"
-        color="#05B990"
-        size="small"
-        variant="outlined"
-        @click="createTask"
-        v-if="!isMobile.value">
-        Create Task
-      </v-btn>
+        <v-btn
+          class="text-none text-subtitle-1"
+          color="#05B990"
+          size="small"
+          variant="outlined"
+          @click="createTask"
+        >
+          Create Task
+        </v-btn>
+      </v-container>
 
       <v-app-bar-nav-icon v-if="isMobile.value" @click="drawer = !drawer"></v-app-bar-nav-icon>
     </v-container>
@@ -84,5 +87,4 @@ defineExpose({
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
-
 </template>
