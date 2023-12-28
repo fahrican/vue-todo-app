@@ -1,4 +1,6 @@
-export const mockTasksResponse = [{
+import {TaskCreateRequest, TaskFetchResponse, TaskUpdateRequest} from "@/types/taskDto";
+
+export const mockTaskFetchResponse: TaskFetchResponse[] = [{
   "id": 23,
   "description": "test new nav",
   "isReminderSet": false,
@@ -13,3 +15,17 @@ export const mockTasksResponse = [{
   "createdOn": "2023-12-26T17:55:41.73961",
   "priority": "HIGH"
 }]
+
+export const mockTaskUpdateRequest: TaskUpdateRequest = {
+  "description": "buy groceries",
+  "isReminderSet": false,
+  "isTaskOpen": true,
+  "priority": "HIGH"
+}
+
+export const mockTaskCreateRequest: TaskCreateRequest= {
+  "description": "workout",
+  "isReminderSet": true,
+  "isTaskOpen": true,
+  "priority": "MEDIUM"
+}
