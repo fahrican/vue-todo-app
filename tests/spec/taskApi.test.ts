@@ -5,7 +5,7 @@ import {HTTP_STATUS} from "../../src/constants/constants";
 import {rest} from "msw";
 import {server} from "../../src/setupTests";
 
-describe('taskService', () => {
+describe('taskService Unit Tests', () => {
   it('fetches tasks', async () => {
     const response = await taskService.getTasks('open');
     expect(response.status).toBe(HTTP_STATUS.OK);

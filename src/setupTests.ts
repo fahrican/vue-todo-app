@@ -18,13 +18,7 @@ export const restHandlers = [
   }),
   rest.patch("https://backend4frontend-dnfm.onrender.com/api/v1/tasks/:id", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(mockTaskUpdateRequest)); // Assume successful update
-  }),
-  rest.post("https://backend4frontend-dnfm.onrender.com/api/v1/tasks/400", (req, res, ctx) => {
-    return res(ctx.status(400), ctx.json({message: "Bad Request Error"}));
-  }),
-  rest.post("https://backend4frontend-dnfm.onrender.com/api/v1/tasks/500", (req, res, ctx) => {
-    return res(ctx.status(500), ctx.json({message: "Internal Server Error"}));
-  }),
+  })
 ];
 
 export const server = setupServer(...restHandlers);
