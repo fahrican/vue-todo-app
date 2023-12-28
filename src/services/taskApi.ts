@@ -1,10 +1,28 @@
-import {AxiosResponse} from "axios";
+import {AxiosError, AxiosResponse} from "axios";
 import {TaskCreateRequest, TaskUpdateRequest} from "@/types/taskDto";
 import axios, {AxiosInstance} from "axios";
+import {HTTP_STATUS} from "@/constants/constants";
 
 
 const baseURL = 'https://backend4frontend-dnfm.onrender.com/api/v1/';
 const api: AxiosInstance = axios.create({baseURL});
+
+api.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  (error: AxiosError) => {
+    if (error.response) {
+      const {status} = error.response;
+      if (status === HTTP_STATUS.BAD_REQUEST) {
+        console.error("Bad Request: ", error.response.data);
+      } else if (status === HTTP_STATUS.INTERNAL_SERVER_ERROR) {
+        console.error("Internal Server Error: ", error.response.data);
+      }
+    } else {
+      console.error("Error: ", error.message);
+    }
+    return Promise.reject(error);
+  }
+);
 
 interface TaskService {
   getTasks: (status: string) => Promise<AxiosResponse>;
