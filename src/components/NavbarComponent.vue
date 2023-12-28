@@ -42,38 +42,42 @@ defineExpose({
 
 <template>
   <v-app-bar flat>
-    <v-container class="mx-auto d-flex align-center justify-space-between">
+    <!-- Container for logo and menu items -->
+    <v-container class="d-flex align-center justify-center">
+      <!-- Logo -->
       <v-app-bar-title>
         <v-img src="../assets/logo.png" max-height="70" max-width="70" @click="logoClicked"></v-img>
       </v-app-bar-title>
 
+      <!-- Menu items for desktop view -->
+      <template v-if="!isMobile.value">
+        <v-btn
+          v-for="link in links"
+          :key="link"
+          @click="selectTaskType(link)"
+          :text="link"
+          variant="text">
+          {{ link }}
+        </v-btn>
+
+        <v-spacer/>
+
+        <v-btn
+          class="text-none text-subtitle-1"
+          color="#05B990"
+          size="small"
+          variant="outlined"
+          @click="createTask">
+          Create Task
+        </v-btn>
+      </template>
+
+      <!-- Hamburger icon for mobile view -->
       <v-app-bar-nav-icon v-if="isMobile.value" @click="drawer = !drawer"></v-app-bar-nav-icon>
-    </v-container>
-
-    <v-container v-if="!isMobile.value" class="d-flex justify-space-between align-center">
-      <v-btn
-        v-for="link in links"
-        :key="link"
-        @click="selectTaskType(link)"
-        :text="link"
-        variant="text">
-        {{ link }}
-      </v-btn>
-
-      <v-spacer/>
-
-      <v-btn
-        class="text-none text-subtitle-1"
-        color="#05B990"
-        size="small"
-        variant="outlined"
-        @click="createTask"
-      >
-        Create Task
-      </v-btn>
     </v-container>
   </v-app-bar>
 
+  <!-- Navigation drawer for mobile view -->
   <v-navigation-drawer v-model="drawer" temporary v-if="isMobile.value">
     <v-list>
       <v-list-item
