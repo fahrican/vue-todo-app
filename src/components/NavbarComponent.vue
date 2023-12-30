@@ -12,10 +12,12 @@ const isMobile = computed(() => {
 
 const links: string[] = [OPEN_TASKS, CLOSED_TASKS, ALL_TASKS]
 const drawer = ref(false);
+const selectedLink = ref('');
 
 const emit = defineEmits(['task-type-selected', 'logo-clicked']);
 
 const selectTaskType = (taskType: string) => {
+  selectedLink.value = taskType;
   emit('task-type-selected', taskType);
   drawer.value = false;
 };
@@ -56,7 +58,8 @@ defineExpose({
           :key="link"
           @click="selectTaskType(link)"
           :text="link"
-          variant="text">
+          variant="text"
+          :class="{ 'selected-link': link === selectedLink }">
           {{ link }}
         </v-btn>
 
@@ -83,7 +86,8 @@ defineExpose({
       <v-list-item
         v-for="link in links"
         :key="link"
-        @click="selectTaskType(link)">
+        @click="selectTaskType(link)"
+        :class="{ 'selected-link': link === selectedLink }">
         <v-list-item-title>{{ link }}</v-list-item-title>
       </v-list-item>
       <v-list-item @click="createTask">
@@ -92,3 +96,9 @@ defineExpose({
     </v-list>
   </v-navigation-drawer>
 </template>
+
+<style scoped>
+.selected-link {
+  color: green !important;
+}
+</style>
