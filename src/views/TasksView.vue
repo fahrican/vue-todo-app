@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import CardComponent from "@/components/CardComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
-import {onMounted, reactive, ref, watch} from "vue";
+import {onMounted, reactive, ref, watch, watchEffect} from "vue";
 import {taskService} from "@/services/taskApi";
 import {TASK_DETAIL_VIEW, TASK_UPDATE_VIEW} from "@/constants/constants";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
@@ -34,6 +34,11 @@ onMounted(() => {
 watch(() => taskStore.selectedTaskType, (newType) => {
   fetchTasks(newType);
 });
+
+watchEffect(() => {
+  fetchTasks(taskStore.selectedTaskType);
+});
+
 
 const openDeleteDialog = (task: { id: number, description: string }) => {
   selectedTaskId.value = task.id;
@@ -80,7 +85,6 @@ async function deleteTask(id: number): Promise<void> {
   });
 }
 
-fetchTasks(taskStore.selectedTaskType);
 </script>
 
 <template>
