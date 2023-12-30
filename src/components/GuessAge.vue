@@ -1,3 +1,33 @@
+<script lang="ts" setup>
+import {ref, computed} from 'vue';
+
+// Props
+const props = defineProps({
+  title: String,
+});
+
+// Data
+const search = ref("");
+const firstname = ref("");
+const age = ref("");
+
+// Computed
+const getAge = computed(async () => {
+  const response = await fetch('https://api.agify.io/?name=' + search.value);
+  const data = await response.json();
+  age.value = data.age;
+  firstname.value = data.name;
+  search.value = "";
+});
+
+defineExpose({
+  getAge,
+  search,
+  firstname,
+  age,
+});
+</script>
+
 <template>
   <h1>{{ title }}</h1>
   <div class="card">
@@ -15,32 +45,3 @@
     <input type="radio" value="pop"> <label>Save my data</label>
   </div>
 </template>
-
-<script>
-
-export default {
-  data() {
-    return {
-      search: "",
-      firstname: "",
-      age: "",
-    }
-  },
-  props: {
-    title: String,
-  },
-  computed: {
-    getAge() {
-      fetch('https://api.agify.io/?name=' + this.search)
-        .then(response => response.json())
-        .then(data => {
-          this.age = data.age
-          this.firstname = data.name
-          this.search = ""
-        })
-    }
-  }
-}
-
-</script>
-
