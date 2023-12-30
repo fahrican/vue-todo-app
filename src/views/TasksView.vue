@@ -13,6 +13,7 @@ import {TaskFetchResponse} from "@/types/taskDto";
 import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue";
 import {AxiosError} from "axios";
 import ErrorDialogComponent from "@/components/ErrorDialogComponent.vue";
+import logRequestError from "@/composables/logRequestError";
 
 
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
@@ -57,7 +58,7 @@ async function fetchTasks(taskType: string): Promise<void> {
     tasks.splice(0, tasks.length, ...response.data);
     isNetworkError.value = false;
   } catch (err: AxiosError | unknown) {
-    console.error(`Error loading tasks: ${err instanceof Error ? err.message : String(err)}`);
+    logRequestError('fetchTasks', err);
     axiosError.value = err instanceof AxiosError ? err : undefined;
     isNetworkError.value = true;
   } finally {
@@ -71,9 +72,9 @@ async function deleteTask(id: number): Promise<void> {
     fetchTasks(taskStore.selectedTaskType);
     isLoading.value = false;
   }).catch((err: AxiosError) => {
-    axiosError.value = err;
-    console.log('Type of error:', err.name);
-    console.log('error deleting task: ' + err);
+    logRequestError('deleteTask', err);
+    axiosError.value = err instanceof AxiosError ? err : undefined;
+    isNetworkError.value = true;
   }).finally(() => {
     isLoading.value = false;
   });
