@@ -11,6 +11,8 @@ import {useTaskStore} from "@/store/taskStore";
 import {useTaskNavigation} from "@/composables/useTaskNavigation";
 import {TaskFetchResponse} from "@/types/taskDto";
 import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue";
+import {AxiosError} from "axios";
+import ErrorDialogComponent from "@/components/ErrorDialogComponent.vue";
 
 
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
@@ -20,6 +22,8 @@ const selectedTaskId = ref(0);
 const isDeleteDialogSelected = ref(false);
 const selectedTaskDescription = ref('');
 const isLoading = ref(false);
+const isNetworkError = ref(false);
+const axiosError = ref<AxiosError>();
 
 
 onMounted(() => {
@@ -51,8 +55,11 @@ async function fetchTasks(taskType: string): Promise<void> {
   try {
     const response = await taskService.getTasks(taskType);
     tasks.splice(0, tasks.length, ...response.data);
-  } catch (err) {
-    console.error('Error loading tasks:', err);
+    isNetworkError.value = false;
+  } catch (err: any) {
+    console.error(`Error loading tasks: ${JSON.stringify(err)}`);
+    axiosError.value = err;
+    isNetworkError.value = true;
   } finally {
     isLoading.value = false;
   }
@@ -63,8 +70,10 @@ async function deleteTask(id: number): Promise<void> {
   await taskService.deleteTask(id).then(() => {
     fetchTasks(taskStore.selectedTaskType);
     isLoading.value = false;
-  }).catch((err) => {
-    console.log('error deleting task: ' + err)
+  }).catch((err: AxiosError) => {
+    axiosError.value = err;
+    console.log('Type of error:', err.name);
+    console.log('error deleting task: ' + err);
   }).finally(() => {
     isLoading.value = false;
   });
@@ -76,6 +85,7 @@ fetchTasks(taskStore.selectedTaskType);
 <template>
   <NavbarComponent @task-type-selected="handleTaskTypeSelected" @logo-clicked="logoClicked"/>
   <AppBackgroundComponent>
+    <ErrorDialogComponent :model-value="isNetworkError" :axios-error="axiosError"/>
     <CardComponent
       :tasks="tasks"
       @card-clicked="handleCardClicked"
