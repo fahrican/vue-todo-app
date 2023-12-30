@@ -20,13 +20,13 @@ const axiosError = ref<AxiosError>();
 
 async function createTask(request: TaskCreateRequest): Promise<void> {
   isLoading.value = true;
+  isNetworkError.value = false;
   await taskService.createTask(request)
     .then(() => {
       isLoading.value = false;
-      isNetworkError.value = false;
       navigateToTasksView();
     })
-    .catch((err: AxiosError) => {
+    .catch((err: AxiosError | unknown) => {
       logRequestError('createNewTask', err);
       axiosError.value = err instanceof AxiosError ? err : undefined;
       isNetworkError.value = true;
