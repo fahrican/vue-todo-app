@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import {ref, computed} from 'vue';
+import {ref, watch} from 'vue';
 
 // Props
-const props = defineProps({
+defineProps({
   title: String,
 });
 
@@ -11,17 +11,16 @@ const search = ref("");
 const firstname = ref("");
 const age = ref("");
 
-// Computed
-const getAge = computed(async () => {
-  const response = await fetch('https://api.agify.io/?name=' + search.value);
-  const data = await response.json();
-  age.value = data.age;
-  firstname.value = data.name;
-  search.value = "";
+watch(search, async (newSearchValue) => {
+  if (newSearchValue) {
+    const response = await fetch('https://api.agify.io/?name=' + newSearchValue);
+    const data = await response.json();
+    age.value = data.age;
+    firstname.value = data.name;
+    search.value = '';
+  }
 });
-
 defineExpose({
-  getAge,
   search,
   firstname,
   age,
