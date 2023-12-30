@@ -6,16 +6,16 @@ const props = defineProps({
   taskDescription: String
 });
 
-const dialog = ref(false);
+const isDialogActive = ref(false);
 const emits = defineEmits(['confirm-delete', 'update:modelValue']);
 
 watch(() => props.modelValue, newVal => {
-  dialog.value = newVal;
+  isDialogActive.value = newVal;
 });
 
 const confirmDelete = () => {
   emits('confirm-delete');
-  dialog.value = false;
+  isDialogActive.value = false;
   emits('update:modelValue', false);
 };
 
@@ -23,7 +23,7 @@ const confirmDelete = () => {
 
 <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" persistent width="auto">
+    <v-dialog v-model="isDialogActive" persistent width="auto">
       <v-card>
         <v-card-title class="text-h5">
           Are you sure you want to delete this task?
@@ -33,7 +33,7 @@ const confirmDelete = () => {
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red-darken-1" variant="text" @click="dialog = false; emits('update:modelValue', false);">
+          <v-btn color="red-darken-1" variant="text" @click="isDialogActive = false; emits('update:modelValue', false);">
             Cancel
           </v-btn>
           <v-btn color="green-darken-1" variant="text" @click="confirmDelete">
