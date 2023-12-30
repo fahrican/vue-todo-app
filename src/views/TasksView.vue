@@ -56,9 +56,9 @@ async function fetchTasks(taskType: string): Promise<void> {
     const response = await taskService.getTasks(taskType);
     tasks.splice(0, tasks.length, ...response.data);
     isNetworkError.value = false;
-  } catch (err: any) {
-    console.error(`Error loading tasks: ${JSON.stringify(err)}`);
-    axiosError.value = err;
+  } catch (err: AxiosError | unknown) {
+    console.error(`Error loading tasks: ${err instanceof Error ? err.message : String(err)}`);
+    axiosError.value = err instanceof AxiosError ? err : undefined;
     isNetworkError.value = true;
   } finally {
     isLoading.value = false;
