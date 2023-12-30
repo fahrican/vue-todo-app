@@ -71,7 +71,7 @@ async function deleteTask(id: number): Promise<void> {
   await taskService.deleteTask(id).then(() => {
     fetchTasks(taskStore.selectedTaskType);
     isLoading.value = false;
-  }).catch((err: AxiosError) => {
+  }).catch((err: AxiosError | unknown) => {
     logRequestError('deleteTask', err);
     axiosError.value = err instanceof AxiosError ? err : undefined;
     isNetworkError.value = true;
