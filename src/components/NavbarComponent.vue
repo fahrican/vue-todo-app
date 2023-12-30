@@ -31,15 +31,6 @@ const createTask = () => {
   drawer.value = false;
 };
 
-defineExpose({
-  selectTaskType,
-  logoClicked,
-  createTask,
-  isMobile,
-  links,
-  drawer
-});
-
 </script>
 
 <template>
