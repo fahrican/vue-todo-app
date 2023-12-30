@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import CardComponent from "@/components/CardComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
-import {onMounted, reactive, ref, watch, watchEffect} from "vue";
+import {onMounted, ref, watch, watchEffect} from "vue";
 import {taskService} from "@/services/taskApi";
 import {TASK_DETAIL_VIEW, TASK_UPDATE_VIEW} from "@/constants/constants";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
@@ -14,17 +14,15 @@ import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue"
 import {AxiosError} from "axios";
 import ErrorDialogComponent from "@/components/ErrorDialogComponent.vue";
 import logRequestError from "@/composables/logRequestError";
+import {useTasks} from "@/composables/useTasks";
 
 
+const { fetchTasks, tasks, isLoading, isNetworkError, axiosError } = useTasks();
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
-const tasks = reactive<TaskFetchResponse[]>([])
 const taskStore = useTaskStore();
 const selectedTaskId = ref(0);
 const isDeleteDialogSelected = ref(false);
 const selectedTaskDescription = ref('');
-const isLoading = ref(false);
-const isNetworkError = ref(false);
-const axiosError = ref<AxiosError>();
 
 
 onMounted(() => {
@@ -54,22 +52,6 @@ const navigateToTaskUpdateView = (task: TaskFetchResponse) => {
   taskStore.setTaskToEdit(task);
   router.push({name: TASK_UPDATE_VIEW, params: {id: task.id.toString()}}).then();
 };
-
-async function fetchTasks(taskType: string): Promise<void> {
-  isLoading.value = true;
-  tasks.length = 0;
-  try {
-    const response = await taskService.getTasks(taskType);
-    tasks.splice(0, tasks.length, ...response.data);
-    isNetworkError.value = false;
-  } catch (err: AxiosError | unknown) {
-    logRequestError('fetchTasks', err);
-    axiosError.value = err instanceof AxiosError ? err : undefined;
-    isNetworkError.value = true;
-  } finally {
-    isLoading.value = false;
-  }
-}
 
 async function deleteTask(id: number): Promise<void> {
   isLoading.value = true;
