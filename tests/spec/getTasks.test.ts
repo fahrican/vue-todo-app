@@ -1,15 +1,11 @@
-import {beforeAll, describe, expect, it, vi} from 'vitest';
+import {describe, expect, it, vi} from 'vitest';
 import {taskService} from "../../src/services/taskApi";
 import {mockTaskFetchResponse} from "./mockResponse";
 import {getTasks} from "../../src/composables/getTasks";
 import {AxiosError} from "axios";
-import {mockTaskService} from "./mockTaskService";
 
 
 describe('getTasks tests', () => {
-  beforeAll(() => {
-    mockTaskService();
-  });
   it('fetchTasks fills tasks array with mockTasksResponse', async () => {
     // Mock taskService.getTasks to return mockTasksResponse
     taskService.getTasks = async () => ({data: mockTaskFetchResponse});
