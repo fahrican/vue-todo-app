@@ -14,10 +14,10 @@ import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue"
 import {AxiosError} from "axios";
 import ErrorDialogComponent from "@/components/ErrorDialogComponent.vue";
 import logRequestError from "@/composables/logRequestError";
-import {useTasks} from "@/composables/useTasks";
+import {getTasks} from "@/composables/getTasks";
 
 
-const { fetchTasks, tasks, isLoading, isNetworkError, axiosError } = useTasks();
+const { fetchTasks, tasks, isLoading, isNetworkError, axiosError } = getTasks();
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 const taskStore = useTaskStore();
 const selectedTaskId = ref(0);

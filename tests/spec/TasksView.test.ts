@@ -1,7 +1,7 @@
 import {describe, expect, it, vi} from 'vitest';
 import {taskService} from "../../src/services/taskApi";
 import {mockTaskFetchResponse} from "./mockResponse";
-import {useTasks} from "../../src/composables/useTasks";
+import {getTasks} from "../../src/composables/getTasks";
 import {AxiosError} from "axios";
 
 
@@ -20,7 +20,7 @@ describe('useTasks', () => {
     taskService.getTasks = vi.fn(() => Promise.reject(mockError));
 
     // Use the composable function
-    const {fetchTasks, isLoading, isNetworkError, axiosError} = useTasks();
+    const {fetchTasks, isLoading, isNetworkError, axiosError} = getTasks();
 
     // Call fetchTasks and expect it to handle the error
     await fetchTasks('testType');
@@ -36,7 +36,7 @@ describe('useTasks', () => {
     taskService.getTasks = async () => ({data: mockTaskFetchResponse});
 
     // Call fetchTasks
-    const {fetchTasks, tasks} = useTasks();
+    const {fetchTasks, tasks} = getTasks();
     await fetchTasks('testType');
 
 

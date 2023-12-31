@@ -1,4 +1,4 @@
-// useTasks.js
+// getTasks.js
 import {taskService} from "@/services/taskApi";
 import {ref, reactive, Ref,} from "vue";
 import {AxiosError} from "axios";
@@ -14,7 +14,7 @@ interface UseTasksReturnType {
 }
 
 
-export function useTasks(): UseTasksReturnType {
+export function getTasks(): UseTasksReturnType {
   const tasks = reactive([]);
   const isLoading = ref(false);
   const isNetworkError = ref(false);
