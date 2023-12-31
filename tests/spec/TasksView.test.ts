@@ -11,7 +11,7 @@ vi.mock('../../src/services/taskApi', () => ({
   },
 }));
 
-describe('useTasks', () => {
+describe('getTasks tests', () => {
   it('handles error in fetchTasks', async () => {
     // Create a mock error
     const mockError = new AxiosError('Network Error');
