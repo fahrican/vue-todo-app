@@ -2,7 +2,6 @@
 import CardComponent from "@/components/CardComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import {onMounted, ref, watch, watchEffect} from "vue";
-import {taskService} from "@/services/taskApi";
 import {TASK_DETAIL_VIEW, TASK_UPDATE_VIEW} from "@/constants/constants";
 import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import router from "@/router";
@@ -11,13 +10,12 @@ import {useTaskStore} from "@/store/taskStore";
 import {useTaskNavigation} from "@/composables/useTaskNavigation";
 import {TaskFetchResponse} from "@/types/taskDto";
 import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue";
-import {AxiosError} from "axios";
 import ErrorDialogComponent from "@/components/ErrorDialogComponent.vue";
-import logRequestError from "@/composables/logRequestError";
 import {getTasks} from "@/composables/getTasks";
+import {removeTask} from "@/composables/removeTask";
 
 
-const { fetchTasks, tasks, isLoading, isNetworkError, axiosError } = getTasks();
+const {fetchTasks, tasks, isLoading, isNetworkError, axiosError} = getTasks();
 const {handleTaskTypeSelected, logoClicked} = useTaskNavigation();
 const taskStore = useTaskStore();
 const selectedTaskId = ref(0);
@@ -53,19 +51,9 @@ const navigateToTaskUpdateView = (task: TaskFetchResponse) => {
   router.push({name: TASK_UPDATE_VIEW, params: {id: task.id.toString()}}).then();
 };
 
-async function deleteTask(id: number): Promise<void> {
-  isLoading.value = true;
-  await taskService.deleteTask(id).then(() => {
-    fetchTasks(taskStore.selectedTaskType);
-    isLoading.value = false;
-  }).catch((err: AxiosError | unknown) => {
-    logRequestError('deleteTask', err);
-    axiosError.value = err instanceof AxiosError ? err : undefined;
-    isNetworkError.value = true;
-  }).finally(() => {
-    isLoading.value = false;
-  });
-}
+const deleteTask = (id: number) => {
+  removeTask(id, isLoading, isNetworkError, axiosError, fetchTasks, taskStore.selectedTaskType);
+};
 
 </script>
 
