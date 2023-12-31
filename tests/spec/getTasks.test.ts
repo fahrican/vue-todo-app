@@ -12,9 +12,23 @@ vi.mock('../../src/services/taskApi', () => ({
 }));
 
 describe('getTasks tests', () => {
+  it('fetchTasks fills tasks array with mockTasksResponse', async () => {
+    // Mock taskService.getTasks to return mockTasksResponse
+    taskService.getTasks = async () => ({data: mockTaskFetchResponse});
+
+    // Call fetchTasks
+    const {fetchTasks, tasks, isLoading, isNetworkError, axiosError} = getTasks();
+    await fetchTasks('testType');
+
+    // Assert tasks array contains mockTasksResponse
+    expect(tasks).toEqual(mockTaskFetchResponse);
+    expect(isLoading.value).toBe(false);
+    expect(isNetworkError.value).toBe(false);
+  });
+
   it('handles error in fetchTasks', async () => {
-    // Create a mock error
-    const mockError = new AxiosError('Network Error');
+    const errorMessage = 'Network error';
+    const mockError = new AxiosError(errorMessage);
 
     // Replace getTasks with a function that rejects with the mock error
     taskService.getTasks = vi.fn(() => Promise.reject(mockError));
@@ -29,18 +43,7 @@ describe('getTasks tests', () => {
     expect(isLoading.value).toBe(false);
     expect(isNetworkError.value).toBe(true);
     expect(axiosError.value).toEqual(mockError);
-  });
-
-  it('fetchTasks fills tasks array with mockTasksResponse', async () => {
-    // Mock taskService.getTasks to return mockTasksResponse
-    taskService.getTasks = async () => ({data: mockTaskFetchResponse});
-
-    // Call fetchTasks
-    const {fetchTasks, tasks} = getTasks();
-    await fetchTasks('testType');
-
-    // Assert tasks array contains mockTasksResponse
-    expect(tasks).toEqual(mockTaskFetchResponse);
+    expect(mockError.message).toEqual(errorMessage);
   });
 });
 
