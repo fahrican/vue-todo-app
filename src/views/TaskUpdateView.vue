@@ -3,14 +3,13 @@ import AppBackgroundComponent from "@/components/AppBackgroundComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import {useTaskNavigation} from "@/composables/useTaskNavigation";
 import TaskUpdateComponent from "@/components/TaskUpdateComponent.vue";
-import {taskService} from "@/services/taskApi";
 import router from "@/router";
 import {TaskUpdateRequest} from "@/types/taskDto";
 import SpinningLoadingComponent from "@/components/SpinningLoadingComponent.vue";
 import {ref} from "vue";
 import ErrorDialogComponent from "@/components/ErrorDialogComponent.vue";
 import {AxiosError} from "axios";
-import logRequestError from "@/composables/logRequestError";
+import {editTask} from "@/composables/editTask";
 
 
 defineProps({
@@ -29,23 +28,10 @@ const clickedAbort = () => {
   router.back();
 };
 
-async function updateTask(id: number, request: TaskUpdateRequest): Promise<void> {
-  isLoading.value = true;
-  isNetworkError.value = false;
-  await taskService.updateTask(id, request)
-    .then(() => {
-      isLoading.value = false;
-      navigateToTasksView();
-    })
-    .catch((err: AxiosError | unknown) => {
-      logRequestError('updateTask', err);
-      axiosError.value = err instanceof AxiosError ? err : undefined;
-      isNetworkError.value = true;
-    })
-    .finally(() => {
-      isLoading.value = false;
-    });
-}
+const updateTask = (id: number, request: TaskUpdateRequest) => {
+  editTask(id, request, isLoading, isNetworkError, axiosError, navigateToTasksView);
+};
+
 </script>
 
 <template>

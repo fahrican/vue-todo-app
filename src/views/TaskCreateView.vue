@@ -19,7 +19,7 @@ const axiosError = ref<AxiosError>();
 
 const createTask = (request: TaskCreateRequest) => {
   generateTask(request, isLoading, isNetworkError, axiosError, navigateToTasksView);
-}
+};
 
 </script>
 
