@@ -1,7 +1,6 @@
 import {describe, expect, it, vi} from 'vitest';
 import {taskService} from "../../src/services/taskApi";
-import {mockTaskFetchResponse, mockTaskUpdateRequest} from "./mockResponse";
-import {getTasks} from "../../src/composables/getTasks";
+import {mockTaskUpdateRequest} from "./mockResponse";
 import {editTask} from "../../src/composables/editTask";
 import {AxiosError} from "axios";
 import {ref, Ref} from "vue";
@@ -21,7 +20,7 @@ describe('editTask tests', () => {
   const axiosError: Ref<AxiosError | unknown> = ref(null);
   const navigateToTasksView = vi.fn();
 
-  it('should handle the happy path correctly', async () => {
+  it('when update task is called then expect success path', async () => {
     taskService.updateTask = async () => ({data: mockTaskUpdateRequest});
 
 
@@ -30,9 +29,10 @@ describe('editTask tests', () => {
     expect(isLoading.value).toBe(false);
     expect(isNetworkError.value).toBe(false);
     expect(axiosError.value).toBe(null);
+    expect(navigateToTasksView).toHaveBeenCalled();
   });
 
-  it('should handle the error case correctly', async () => {
+  it('when update task is called then expect network error', async () => {
     const mockError = new Error('Network error');
     taskService.updateTask = vi.fn(() => Promise.reject(mockError));
 
@@ -40,9 +40,6 @@ describe('editTask tests', () => {
 
     expect(isLoading.value).toBe(false);
     expect(isNetworkError.value).toBe(true);
-    console.log('message' + mockError.message);
-    console.log('axios' + axiosError.value);
     expect(mockError.message).toEqual('Network error');
-    expect(navigateToTasksView).toHaveBeenCalled();
   });
 });
