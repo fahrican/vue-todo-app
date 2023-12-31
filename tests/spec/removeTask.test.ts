@@ -18,7 +18,7 @@ describe('removeTask tests', () => {
   const fetchTasks = vi.fn();
   const taskType = 'completed';
 
-  it('should handle the happy path correctly', async () => {
+  it('when delete task is called then expect success path', async () => {
     taskService.deleteTask = async () => ({});
 
     await removeTask(id, isLoading, isNetworkError, axiosError, fetchTasks, taskType);
@@ -28,7 +28,7 @@ describe('removeTask tests', () => {
     expect(fetchTasks).toHaveBeenCalled();
   });
 
-  it('should handle the error case correctly', async () => {
+  it('when delete task is called then expect network error', async () => {
     const errorMessage = 'Network error';
     const mockError = new AxiosError(errorMessage);
     taskService.deleteTask = vi.fn(() => Promise.reject(mockError));

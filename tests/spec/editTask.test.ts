@@ -33,13 +33,15 @@ describe('editTask tests', () => {
   });
 
   it('when update task is called then expect network error', async () => {
-    const mockError = new Error('Network error');
+    const errorMessage = 'Network error';
+    const mockError = new AxiosError(errorMessage);
     taskService.updateTask = vi.fn(() => Promise.reject(mockError));
 
     await editTask(id, request, isLoading, isNetworkError, axiosError, navigateToTasksView);
 
     expect(isLoading.value).toBe(false);
     expect(isNetworkError.value).toBe(true);
-    expect(mockError.message).toEqual('Network error');
+    expect(axiosError.value).toEqual(mockError);
+    expect(mockError.message).toEqual(errorMessage);
   });
 });
