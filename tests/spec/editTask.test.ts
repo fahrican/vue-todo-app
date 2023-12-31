@@ -6,12 +6,6 @@ import {AxiosError} from "axios";
 import {ref, Ref} from "vue";
 
 
-vi.mock('../../src/services/taskApi', () => ({
-  taskService: {
-    getTasks: vi.fn(),
-  },
-}));
-
 describe('editTask tests', () => {
   const id = 1;
   const request = {title: 'New Task', completed: false};

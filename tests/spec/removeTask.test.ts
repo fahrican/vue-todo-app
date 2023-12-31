@@ -4,11 +4,6 @@ import {removeTask} from "../../src/composables/removeTask";
 import {Ref, ref} from "vue";
 import {AxiosError} from "axios";
 
-vi.mock('../../src/services/taskApi', () => ({
-  taskService: {
-    deleteTask: vi.fn(),
-  },
-}));
 
 describe('removeTask tests', () => {
   const id = 1;

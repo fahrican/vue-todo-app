@@ -5,12 +5,6 @@ import {Ref, ref} from "vue";
 import {AxiosError} from "axios";
 import {mockTaskCreateRequest} from "./mockResponse";
 
-vi.mock('../../src/services/taskApi', () => ({
-  taskService: {
-    createTask: vi.fn(),
-  },
-}));
-
 describe('generateTask tests', () => {
   const request = {title: 'New Task', completed: false};
   const isLoading: Ref<boolean> = ref(false);
