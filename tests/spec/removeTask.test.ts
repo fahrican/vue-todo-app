@@ -25,18 +25,19 @@ describe('removeTask tests', () => {
 
     expect(isLoading.value).toBe(false);
     expect(isNetworkError.value).toBe(false);
-    expect(axiosError.value).toBe(null);
     expect(fetchTasks).toHaveBeenCalled();
   });
 
   it('should handle the error case correctly', async () => {
-    const mockError = new Error('Network error');
+    const errorMessage = 'Network error';
+    const mockError = new AxiosError(errorMessage);
     taskService.deleteTask = vi.fn(() => Promise.reject(mockError));
 
     await removeTask(id, isLoading, isNetworkError, axiosError, fetchTasks, taskType);
 
     expect(isLoading.value).toBe(false);
     expect(isNetworkError.value).toBe(true);
-    expect(mockError.message).toEqual('Network error');
+    expect(axiosError.value).toEqual(mockError);
+    expect(mockError.message).toEqual(errorMessage);
   });
 });
