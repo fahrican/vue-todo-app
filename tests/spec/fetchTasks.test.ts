@@ -39,7 +39,6 @@ describe('getTasks tests', () => {
     const {fetchTasks, tasks} = getTasks();
     await fetchTasks('testType');
 
-
     // Assert tasks array contains mockTasksResponse
     expect(tasks).toEqual(mockTaskFetchResponse);
   });
