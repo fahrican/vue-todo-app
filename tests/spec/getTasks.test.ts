@@ -11,7 +11,7 @@ describe('getTasks tests', () => {
     taskService.getTasks = async () => ({data: mockTaskFetchResponse});
 
     // Call fetchTasks
-    const {fetchTasks, tasks, isLoading, isNetworkError, axiosError} = getTasks();
+    const {fetchTasks, tasks, isLoading, isNetworkError} = getTasks();
     await fetchTasks('testType');
 
     // Assert tasks array contains mockTasksResponse
