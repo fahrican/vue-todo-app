@@ -28,6 +28,20 @@ pnpm build
 pnpm lint
 ```
 
+### Run tests
+
+```
+# pnpm
+pnpm test:unit
+```
+
+### Run Tests with coverage
+
+```
+# pnpm
+pnpm test:coverage
+```
+
 ### Customize configuration
 
 See [Configuration Reference](https://vitejs.dev/config/).
